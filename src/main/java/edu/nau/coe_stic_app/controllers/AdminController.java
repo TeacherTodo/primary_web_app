@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController
+public class AdminController
 {
-    @RequestMapping(path = {"/home", "/index", "/"}, method = RequestMethod.GET)
-    public String serverHomePage(Model model)
+    @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
+    public String adminDashboard(Model model)
     {
-        return "index";
+        return "admin";
     }
 }
