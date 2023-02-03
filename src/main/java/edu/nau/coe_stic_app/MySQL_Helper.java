@@ -35,14 +35,12 @@ public class MySQL_Helper
     {
         List<RequirementInstance> instances = new ArrayList<RequirementInstance>();
         PreparedStatement statement;
-        int rows;
         ResultSet result;
 
         try
         {
             statement = con.prepareStatement("SELECT * FROM Requirement_Instances WHERE uid='?'");
             statement.setString(1, uid);
-            rows = statement.executeUpdate();
             result = statement.executeQuery();
 
             while(result.next())
@@ -52,6 +50,30 @@ public class MySQL_Helper
             }
 
             return instances;
+        }
+        catch(SQLException exception)
+        {
+            return null;
+        }
+    }
+
+    public static List<String> getAllApprovedUsers(Connection con)
+    {
+        List<String> users = new ArrayList<String>();
+        PreparedStatement statement;
+        ResultSet result;
+
+        try
+        {
+            statement = con.prepareStatement("SELECT * FROM Approved_Users");
+            result = statement.executeQuery();
+
+            while(result.next())
+            {
+                users.add(result.getString("uid"));
+            }
+
+            return users;
         }
         catch(SQLException exception)
         {
