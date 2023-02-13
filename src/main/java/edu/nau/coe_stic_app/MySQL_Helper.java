@@ -1,10 +1,11 @@
 package edu.nau.coe_stic_app;
 
+import edu.nau.coe_stic_app.models.RequirementInstance;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQL_Helper
 {
@@ -23,6 +24,34 @@ public class MySQL_Helper
         {
             Connection con = DriverManager.getConnection(con_string, username, password);
             return con;
+        }
+        catch(SQLException exception)
+        {
+            return null;
+        }
+    }
+
+    public static List<RequirementInstance> getRequirementInstances(Connection con, String uid)
+    {
+        List<RequirementInstance> instances = new ArrayList<RequirementInstance>();
+        PreparedStatement statement;
+        int rows;
+        ResultSet result;
+
+        try
+        {
+            statement = con.prepareStatement("SELECT * FROM Requirement_Instances WHERE uid='?'");
+            statement.setString(1, uid);
+            rows = statement.executeUpdate();
+            result = statement.executeQuery();
+
+            while(result.next())
+            {
+                instances.add(new RequirementInstance(result.getInt("id"), result.getInt("req_id"), result.getString("uid"),
+                        result.getString("status"), result.getString("doc_guid"), result.getDate("retake_date")));
+            }
+
+            return instances;
         }
         catch(SQLException exception)
         {
