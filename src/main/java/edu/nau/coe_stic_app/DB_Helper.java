@@ -2,20 +2,11 @@ package edu.nau.coe_stic_app;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.nau.coe_stic_app.exceptions.Malformed_API_URL_Exception;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Value;
 import edu.nau.DataModel.*;
-import java.io.BufferedReader;
+import okhttp3.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DB_Helper
@@ -49,7 +40,7 @@ public class DB_Helper
       return requirements;
    }
 
-   public static Document getDocument(String guid, String uid) throws IOException
+   public static Document getStudentDocument(String guid, String uid) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
       Request request = new Request.Builder()
@@ -60,5 +51,29 @@ public class DB_Helper
       ObjectMapper mapper = new ObjectMapper();
       Document doc = mapper.readValue(response.body().byteStream(), Document.class);
       return doc;
+   }
+
+   public static String uploadFmpExport(MultipartFile file) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody requestBody = new MultipartBody.Builder()
+              .setType(MultipartBody.FORM)
+              .addFormDataPart("file", file.getName(), RequestBody.create(
+                      MediaType.parse("application/vnd.ms-excel"), file.getBytes()))
+              .build();
+
+      Request request = new Request.Builder()
+              .url(apiUrl + "/documents")
+              .post(requestBody)
+              .build();
+
+      Response response = client.newCall(request).execute();
+
+      if(response.code() != 200)
+      {
+         return response.message();
+      }
+
+      return null;
    }
 }
