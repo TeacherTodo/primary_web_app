@@ -53,7 +53,24 @@ public class DB_Helper
       return doc;
    }
 
-   public static String uploadFmpExport(MultipartFile file) throws IOException
+   public static void uploadStudentDocument(MultipartFile file, String uid) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody requestBody = new MultipartBody.Builder()
+              .setType(MultipartBody.FORM)
+              .addFormDataPart("file", file.getName(), RequestBody.create(
+                      MediaType.parse("application/pdf"), file.getBytes()))
+              .build();
+
+      Request request = new Request.Builder()
+              .url(apiUrl + "/students/" + uid + "/documents")
+              .post(requestBody)
+              .build();
+
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void uploadFmpExport(MultipartFile file) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
       RequestBody requestBody = new MultipartBody.Builder()
@@ -68,12 +85,5 @@ public class DB_Helper
               .build();
 
       Response response = client.newCall(request).execute();
-
-      if(response.code() != 200)
-      {
-         return response.message();
-      }
-
-      return null;
    }
 }
