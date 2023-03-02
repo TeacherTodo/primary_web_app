@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher To-Do Students</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+</head>
+<body>
+    <header>
+        <div class="content-width">
+            <h1><img src="Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do  </h1>
+            <h2> <strong>A project devoted to helping new student teachers.</strong> </h2>
+            <p class="titleText">Hello, Professor Doe!</p>
+        </div>
+    </header>
+
+    <div class = "container-md">
+        <div class = "row">
+            <div class="col-sm">
+              <h1>Students</h1>
+              <div class="accordion" id="accordionExample3">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="heading">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="true" aria-controls="collapse">
+                        <h5><strong>Hector Jones</strong></h5>
+                    </button>
+                  </h2>
+                  <div id="collapse" class="accordion-collapse collapse show" aria-labelledby="heading" data-bs-parent="#accordionExample3">
+                    <div class="accordion-body">
+                      <p>Submit Score of Arizona Teacher Proficiency Assessment</p>
+                      <p>Submit Degree Transcripts</p>
+                      <p>Complete STIC Application<p>
+                      <p>Submit EPP Supervision Plan</p>
+                      <p>Upload STIC Request for Issuance</p>
+                      <h6>Submit Score for the Arizona Teacher Proficiency Assessment</h6>
+                      <h6>Upload Current GPA Score</h6>
+                      <h6>Confirm Capstone Enrollment</h6>
+                    </div>
+                  </div>
+                </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeven">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        <h5 class="pendingTitle"><strong>John Doe</strong></h5>
+                    </button>
+                  </h2>
+                  <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample3">
+                      <div class="accordion-body">
+                        <p>Submit Score of Arizona Teacher Proficiency Assessment</p>
+                        <p>Submit Degree Transcripts</p>
+                        <p>Complete STIC Application<p>
+                        <p class="pendingText">Submit EPP Supervision Plan</p>
+                        <p class="urgentText">Upload STIC Request for Issuance</p>
+                        <h6>Submit Score for the Arizona Teacher Proficiency Assessment</h6>
+                        <h6>Upload Current GPA Score</h6>
+                        <h6>Confirm Capstone Enrollment</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEight">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                          <h5 class="urgentTitle"><strong>Todd Howard</strong></h5>
+                      </button>
+                    </h2>
+                    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample3">
+                      <div class="accordion-body">
+                        <p class="urgentText">Submit Score of Arizona Teacher Proficiency Assessment</p>
+                        <p class="urgentText">Submit Degree Transcripts</p>
+                        <p class="urgentText">Complete STIC Application<p>
+                        <p class="urgentText">Submit EPP Supervision Plan</p>
+                        <p class="urgentText">Upload STIC Request for Issuance</p>
+                        <p class="urgentText">Submit Score for the Arizona Teacher Proficiency Assessment</p>
+                        <p class="urgentText">Upload Current GPA Score</p>
+                        <p class="urgentText">Confirm Capstone Enrollment</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNine">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                          <h5 class="h6"><strong>George Hall</strong></h5>
+                      </button>
+                    </h2>
+                    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample3">
+                      <div class="accordion-body">
+                        <h6>Submit Score of Arizona Teacher Proficiency Assessment</h6>
+                        <h6>Submit Degree Transcripts</h6>
+                        <h6>Complete STIC Application</h6>
+                        <h6>Submit EPP Supervision Plan</h6>
+                        <h6>Upload STIC Request for Issuance</h6>
+                        <h6>Submit Score for the Arizona Teacher Proficiency Assessment</h6>
+                        <h6>Upload Current GPA Score</h6>
+                        <h6>Confirm Capstone Enrollment</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+                  
+            </div>
+
+            <script src="/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>
