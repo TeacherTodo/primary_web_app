@@ -1,53 +1,87 @@
 package edu.nau.coe_stic_app.models;
 
+import jakarta.annotation.Nullable;
+
 import java.util.Date;
 
 public class RequirementInstance
 {
-   private int id;
-   private int req_id;
-   private String uid;
-   private String status;
-   private String doc_guid;
-   private Date retake_date;
+    private int id;
+    private int requirement_id;
+    private String student_uid;
+    private String status;
+    @Nullable
+    private String doc_guid;
+    @Nullable
+    private Date retake_date;
 
-   public RequirementInstance(int id, int req_id, String uid, String status, String doc_guid, Date retake_date)
-   {
-      this.id = id;
-      this.req_id = req_id;
-      this.uid = uid;
-      this.status = status;
-      this.doc_guid = doc_guid;
-      this.retake_date = retake_date;
-   }
+    public RequirementInstance(int id, int requirement_id, String student_uid, String status)
+    {
+        this.id = id;
+        this.requirement_id = requirement_id;
+        this.student_uid = student_uid;
+        this.status = status;
+        this.doc_guid = null;
+        this.retake_date = null;
+    }
 
-   public int getID()
-   {
-      return this.id;
-   }
+    public RequirementInstance(int id, int requirement_id, String student_uid, String status, String doc_guid)
+    {
+        this.id = id;
+        this.requirement_id = requirement_id;
+        this.student_uid = student_uid;
+        this.status = status;
+        this.doc_guid = doc_guid;
+        this.retake_date = null;
+    }
 
-   public int getReqID()
-   {
-      return this.req_id;
-   }
+    public RequirementInstance(int id, int requirement_id, String student_uid, String status, Date retake_date)
+    {
+        this.id = id;
+        this.requirement_id = requirement_id;
+        this.student_uid = student_uid;
+        this.status = status;
+        this.doc_guid = null;
+        this.retake_date = retake_date;
+    }
 
-   public String getUID()
-   {
-      return this.uid;
-   }
+    public RequirementInstance(int id, int requirement_id, String student_uid, String status, String doc_guid, Date retake_date)
+    {
+        this.id = id;
+        this.requirement_id = requirement_id;
+        this.student_uid = student_uid;
+        this.status = status;
+        this.doc_guid = doc_guid;
+        this.retake_date = retake_date;
+    }
 
-   public String getStatus()
-   {
-      return this.status;
-   }
+    public int getID()
+    {
+        return this.id;
+    }
 
-   public String getDocGUID()
-   {
-      return this.doc_guid;
-   }
+    public int getRequirementID()
+    {
+        return this.requirement_id;
+    }
 
-   public Date getRetakeDate()
-   {
-      return this.retake_date;
-   }
+    public String getStudentUID()
+    {
+        return this.student_uid;
+    }
+
+    public String getStatus()
+    {
+        return this.status;
+    }
+
+    public String getDocGUID()
+    {
+        return this.doc_guid;
+    }
+
+    public Date getRetakeDate()
+    {
+        return this.retake_date;
+    }
 }
