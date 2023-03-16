@@ -10,10 +10,10 @@
 
     <body>
         <h2>Upload New FileMakerPro Export Document</h2>
-        <form action="fmp-upload.html" method="post">
+        <form action="fmp-upload.html" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fmp-export">Upload Export File: </label>
-                <input type="file" class="form-control" id="fmp-export">
+                <input type="file" class="form-control" id="fmp-export" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
