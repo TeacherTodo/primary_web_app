@@ -308,6 +308,15 @@ public class DB_Helper
       Response response = client.newCall(request).execute();
    }
 
+   public static void createDocument(CreateDocumentRequest req) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/documents").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
    public static void editRequirement(Requirement req) throws Exception
    {
       OkHttpClient client = new OkHttpClient();
@@ -323,6 +332,15 @@ public class DB_Helper
       ObjectMapper mapper = new ObjectMapper();
       RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(student)).build();
       Request request = new Request.Builder().url(apiUrl + "/student").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void editDocument(Document doc) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(doc)).build();
+      Request request = new Request.Builder().url(apiUrl + "/document").post(body).build();
       Response response = client.newCall(request).execute();
    }
 
@@ -347,6 +365,14 @@ public class DB_Helper
       OkHttpClient client = new OkHttpClient();
       RequestBody body = new FormBody.Builder().build();
       Request request = new Request.Builder().url(apiUrl + "/admin/" + uid).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void deleteDocument(String guid) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/document/" + guid).delete(body).build();
       Response response = client.newCall(request).execute();
    }
 }
