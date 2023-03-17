@@ -5,19 +5,31 @@ import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.CreateDocumentRequest;
 import edu.nau.coe_stic_app.models.Document;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.List;
 
 @Controller
 public class DocumentController
 {
     @RequestMapping(path = "/admin/all-docs", method = RequestMethod.GET)
-    //TODO: Implement endpoint
+    public String allDocs(Model model) throws Exception
+    {
+        List<Document> docs = DB_Helper.getAllDocs();
+        model.addAttribute("docs", docs);
+        return "view-docs"; //TODO: Create HTML page
+    }
 
     @RequestMapping(path = "/admin/pending-docs",method = RequestMethod.GET)
-    //TODO: Implement endpoint
+    public String pendingDocs(Model model) throws Exception
+    {
+        List<Document> docs = DB_Helper.getPendingDocs();
+        model.addAttribute("docs", docs);
+        return "view-docs";
+    }
 
     @RequestMapping(path = "/create-document", method = RequestMethod.POST)
     public String createDoc(@RequestBody String jsonString) throws Exception
