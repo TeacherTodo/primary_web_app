@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>View Requirements</title>
+    </head>
+    <body>
+        <h2>View Requirements</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Major</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Requires Documentation</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr th:each="requirement : ${requirementList}">
+                <td th:text="${requirement.getMajor()}"></td>
+                <td th:text="${requirement.getDescription()}"></td>
+                <td th:text="${requirement.isDocumentationRequired()}"></td>
+                <td>
+                  <button type="button" class="btn btn-primary" th:action="@{/admin/edit-requirement/${requirement.getID()}}">Edit</button>
+                  <button type="button" class="btn btn-danger" th:action="@{/admin/delete-requirement/${requirement.getID()}}">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -160,6 +160,60 @@ public class DB_Helper
       }
    }
 
+   public static Requirement getRequirementByID(int id) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         Requirement req = mapper.readValue(response.body().byteStream(), Requirement.class);
+         return req;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
+   public static Major getMajorByName(String name) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/major/" + name).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         Major major = mapper.readValue(response.body().byteStream(), Major.class);
+         return major;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
+   public static Term getTermByName(String name) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/term/" + name).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         Term term = mapper.readValue(response.body().byteStream(), Term.class);
+         return term;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
    public static void createAdminUser(String uid) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
@@ -178,9 +232,9 @@ public class DB_Helper
       Response response = client.newCall(request).execute();
    }
 
-   public static void createRequirement(String major, String description, boolean documentation_required) throws Exception
+   public static void createRequirement(String major, String title, String description, boolean documentation_required) throws Exception
    {
-      CreateRequirementRequest req = new CreateRequirementRequest(major, description, documentation_required);
+      CreateRequirementRequest req = new CreateRequirementRequest(major, title, description, documentation_required);
       ObjectMapper mapper = new ObjectMapper();
       OkHttpClient client = new OkHttpClient();
       RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
@@ -233,6 +287,23 @@ public class DB_Helper
       OkHttpClient client = new OkHttpClient();
       RequestBody body = new FormBody.Builder().build();
       Request request = new Request.Builder().url(apiUrl + "/majors/" + name).post(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void editRequirement(Requirement req) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void deleteRequirement(int id) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).delete(body).build();
       Response response = client.newCall(request).execute();
    }
 }

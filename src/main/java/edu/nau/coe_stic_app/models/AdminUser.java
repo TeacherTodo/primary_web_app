@@ -4,6 +4,8 @@ public class AdminUser
 {
     private String uid;
 
+    private String name;
+
     public AdminUser(String uid)
     {
         this.uid = uid;
@@ -13,4 +15,5 @@ public class AdminUser
     {
         return this.uid;
     }
+    public String getName() {return this.name;}
 }
