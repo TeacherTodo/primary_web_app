@@ -4,6 +4,8 @@ public class Major
 {
     private String major;
 
+    public Major() {}
+
     public Major(String major)
     {
         this.major = major;

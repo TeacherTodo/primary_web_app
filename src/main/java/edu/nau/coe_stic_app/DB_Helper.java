@@ -160,6 +160,24 @@ public class DB_Helper
       }
    }
 
+   public static List<AdminUser> getAllAdmins() throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/admins").build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         List<AdminUser> admins = mapper.readValue(response.body().byteStream(), new TypeReference<List<AdminUser>>(){});
+         return admins;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
    public static Requirement getRequirementByID(int id) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
@@ -304,6 +322,22 @@ public class DB_Helper
       OkHttpClient client = new OkHttpClient();
       RequestBody body = new FormBody.Builder().build();
       Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void deleteMajor(String name) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/major/" + name).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
+   public static void deleteAdmin(String uid) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/admin/" + uid).delete(body).build();
       Response response = client.newCall(request).execute();
    }
 }

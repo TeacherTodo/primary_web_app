@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Delete Requirement</title>
+  </head>
+  <body>
+    <h2>Delete Requirement</h2>
+    <p>Are you sure that you want to delete this major?</p>
+    <button class="btn btn-danger" type="button" th:action="@{/admin/delete-major/${name}}" th:method="post">Confirm</button>
+    <button class="btn btn-secondary" type="button" th:action="@{/admin/view-majors}" th:method="get">Cancel</button>
+  </body>
+</html>

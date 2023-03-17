@@ -15,6 +15,8 @@ public class RequirementInstance
     @Nullable
     private Date retake_date;
 
+    public RequirementInstance() {}
+
     public RequirementInstance(int id, int requirement_id, String student_uid, String status)
     {
         this.id = id;

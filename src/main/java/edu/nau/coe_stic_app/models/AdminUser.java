@@ -10,6 +10,7 @@ public class AdminUser
     {
         this.uid = uid;
     }
+    public AdminUser() {}
 
     public String getUID()
     {

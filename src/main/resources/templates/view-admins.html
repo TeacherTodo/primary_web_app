@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>View Requirements</title>
+  </head>
+  <body>
+  <h2>View Requirements</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">UID</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="admin : ${adminList}">
+      <td th:text="${admin.getUID();}"></td>
+      <td>
+        <button type="button" class="btn btn-danger" th:action="@{/admin/delete-admin/${admin.getUID()}}">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </body>
+</html>
