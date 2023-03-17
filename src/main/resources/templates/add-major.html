@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Create Major</title>
+    </head>
+    <body>
+      <form action="#" method="post" th:action="@{/admin/add-major}" th:object="${major}">
+          <div class="form-group">
+              <label for="major">Major Name: </label>
+              <input type="text" id="major" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </body>
+</html>
