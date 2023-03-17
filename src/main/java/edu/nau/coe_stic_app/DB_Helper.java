@@ -317,6 +317,15 @@ public class DB_Helper
       Response response = client.newCall(request).execute();
    }
 
+   public static void editStudent(Student student) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(student)).build();
+      Request request = new Request.Builder().url(apiUrl + "/student").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
+
    public static void deleteRequirement(int id) throws Exception
    {
       OkHttpClient client = new OkHttpClient();
