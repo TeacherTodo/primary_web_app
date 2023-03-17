@@ -31,7 +31,7 @@ public class RequirementController
         return "redirect:/admin/view-requirements";
     }
 
-    @RequestMapping(path = "", method = RequestMethod.GET)
+    @RequestMapping(path = "/admin/view-requirements", method = RequestMethod.GET)
     public String viewRequirements(Model model) throws IOException
     {
         List<Requirement> requirements = DB_Helper.getAllRequirements();
