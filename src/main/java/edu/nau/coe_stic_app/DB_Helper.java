@@ -14,6 +14,36 @@ public class DB_Helper
    @Value("${api.url}")
    private static String apiUrl;
 
+   public static String getUserRole(String uid) throws IOException
+   {
+      List<AdminUser> admins = getAllAdmins();
+
+      for(AdminUser admin : admins)
+      {
+         if(admin.getUID().equals(uid))
+         {
+            return "admin";
+         }
+      }
+
+      return "student";
+   }
+
+   public static boolean isRegisteredStudent(String uid) throws IOException
+   {
+      List<Student> students = getAllStudents();
+
+      for(Student student : students)
+      {
+         if(student.getUID().equals(uid))
+         {
+            return true;
+         }
+      }
+
+      return false;
+   }
+
    public static Student getStudent(String uid) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
