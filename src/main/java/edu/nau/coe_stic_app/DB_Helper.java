@@ -232,6 +232,42 @@ public class DB_Helper
       }
    }
 
+   public static List<Document> getAllDocs() throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/docs-all").build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>(){});
+         return docs;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
+   public static List<Document> getPendingDocs() throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/docs-pending").build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+
+      try
+      {
+         List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>(){});
+         return docs;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
+
    public static void createAdminUser(String uid) throws IOException
    {
       OkHttpClient client = new OkHttpClient();
