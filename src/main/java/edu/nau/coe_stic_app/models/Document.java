@@ -1,24 +1,28 @@
 package edu.nau.coe_stic_app.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class Document
 {
     private String guid;
     private String file_extension;
-    private String approval_status;
+    @JsonProperty("approval_status")
+    private String status;
     private int requirement_instance_id;
-    private String student_uid;
+    @JsonProperty("student_uid")
+    private String student;
     private String student_name;
     private Date upload_timestamp;
 
-    public Document(String guid, String file_extension, String approval_status, int requirement_instance_id, String student_uid, String student_name, Date upload_timestamp)
+    public Document(String guid, String file_extension, String status, int requirement_instance_id, String student, String student_name, Date upload_timestamp)
     {
         this.guid = guid;
         this.file_extension = file_extension;
-        this.approval_status = approval_status;
+        this.status = status;
         this.requirement_instance_id = requirement_instance_id;
-        this.student_uid = student_uid;
+        this.student = student;
         this.student_name = student_name;
         this.upload_timestamp = upload_timestamp;
     }
@@ -35,7 +39,7 @@ public class Document
 
     public String getApprovalStatus()
     {
-        return this.approval_status;
+        return this.status;
     }
 
     public int getRequirementInstanceID()
@@ -44,7 +48,7 @@ public class Document
     }
     public String getStudentUID()
     {
-        return this.student_uid;
+        return this.student;
     }
     public String getStudentName() {return this.student_name;}
 

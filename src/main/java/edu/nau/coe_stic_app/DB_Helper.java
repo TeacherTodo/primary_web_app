@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DB_Helper
 {
-   @Value("${api.url}")
-   private static String apiUrl;
+   //@Value("${api.url}:http://localhost:8888")
+   private static String apiUrl = "http://localhost:8888/api";
 
    public static String getUserRole(String uid) throws IOException
    {
@@ -71,13 +71,36 @@ public class DB_Helper
 
       try
       {
-         List<RequirementInstance> requirements = mapper.readValue(response.body().byteStream(), new TypeReference<List<RequirementInstance>>(){});
+         String responseString = response.body().string();
+         //responseString = removeExtraField(responseString);
+         System.out.printf("Response String: %s\n", responseString);
+         List<RequirementInstance> requirements = mapper.readValue(responseString, new TypeReference<List<RequirementInstance>>(){});
          return requirements;
       }
       catch(Exception e)
       {
+         System.out.println("Failed to parse JSON response.");
+         e.printStackTrace();
          return null;
       }
+   }
+
+   private static String removeExtraField(String string)
+   {
+      while(string.contains("studentUID"))
+      {
+         int startIndex = string.indexOf("studentUID") - 1;
+         int endIndex = startIndex + 81;
+
+         if(string.charAt(endIndex + 1) != '}')
+         {
+            endIndex++;
+         }
+
+         string = string.substring(0, startIndex) + string.substring(endIndex, string.length());
+      }
+
+      return string;
    }
 
    public static List<Student> getAllStudents() throws IOException

@@ -95,6 +95,6 @@ public class LoginController
          e.printStackTrace();
       }
 
-      return "redirect:/dashboard";
+      return cookieValue;
    }
 }
