@@ -95,4 +95,17 @@ public class RequirementInstance
     {
         return this.retake_date;
     }
+
+    @Override
+    public String toString()
+    {
+        return "RequirementInstance{" +
+                "id=" + id +
+                ", requirement_id=" + requirement_id +
+                ", student='" + student + '\'' +
+                ", status='" + status + '\'' +
+                ", doc_guid='" + doc_guid + '\'' +
+                ", retake_date=" + retake_date +
+                '}';
+    }
 }

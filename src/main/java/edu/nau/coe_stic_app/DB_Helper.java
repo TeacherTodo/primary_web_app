@@ -236,15 +236,28 @@ public class DB_Helper
       OkHttpClient client = new OkHttpClient();
       Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).build();
       Response response = client.newCall(request).execute();
-      ObjectMapper mapper = new ObjectMapper();
+
+      System.out.println("getRequirementByID() response.body().string(): " + response.body().toString()); //TODO: Remove this
 
       try
       {
-         Requirement req = mapper.readValue(response.body().byteStream(), Requirement.class);
-         return req;
+         // TODO: i added this, works in student controller
+         String myReqJson = response.body().string();
+         System.out.println("    Works: getRequirementByID() response.body().string(): " + myReqJson);
+         Requirement myReqDecoded = new ObjectMapper().readValue(myReqJson, Requirement.class);
+         System.out.println("    Works: getRequirementByID() response.body().string(): " + myReqDecoded.toString());
+         return myReqDecoded;
+         // TODO: end of my code
+
+
+//         ObjectMapper mapper = new ObjectMapper();
+//         Requirement req = mapper.readValue(response.body().byteStream(), Requirement.class);
+//         System.out.println("    getRequirementByID() req.toString(): " + req.toString()); //TODO: Remove this
+//         return req;
       }
       catch(Exception e)
       {
+         System.out.println("    getRequirementByID(): Failed to parse JSON response."); //TODO: Remove this
          return null;
       }
    }
