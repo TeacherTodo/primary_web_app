@@ -17,7 +17,7 @@ public class StudentController
     @RequestMapping(path = {"/", "/home", "/dashboard", "/student"}, method = RequestMethod.GET)
     public String studentDashboard(Model model) throws IOException
     {
-        List<RequirementInstance> instances = DB_Helper.getStudentRequirements("uid");//TODO: Update call to use actual UID of logged in user
+        List<RequirementInstance> instances = DB_Helper.getStudentRequirements("6e8d6c69af58e73c7248364aa59b0c257f6ba1d19782eb9e38890a61ada948ef");//TODO: Update call to use actual UID of logged in user
         List<Requirement> requirements = new ArrayList<Requirement>();
 
         for(RequirementInstance instance : instances)
