@@ -17,7 +17,9 @@
         <tr th:each="major : ${majors}">
           <td th:text="${major.getMajor()}"></td>
           <td>
-            <button type="button" class="btn btn-danger" th:action="@{/admin/delete-major/${major.getMajor()}}">Delete</button>
+            <form th:action="${'/admin/delete-major/' + major.getMajor()}" method="get" >
+              <button type="submit" class="btn btn-danger" >Delete</button>
+            </form>
           </td>
         </tr>
       </tbody>

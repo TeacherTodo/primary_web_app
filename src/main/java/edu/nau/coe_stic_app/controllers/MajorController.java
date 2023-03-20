@@ -41,13 +41,15 @@ public class MajorController
     @RequestMapping(path = "/admin/delete-major/{name}", method = RequestMethod.GET)
     public String deleteMajor(@PathVariable String name,  Model model)
     {
-        model.addAttribute("name", name);
+        System.out.println("deleteMajor(name): " + name);
+        model.addAttribute("major", name);
         return "delete-major";
     }
 
     @RequestMapping(path = "/admin/delete-major/{name}", method = RequestMethod.POST)
     public String confirmDeleteMajor(@PathVariable String name) throws Exception
     {
+        System.out.println("confirmDeleteMajor(name): " + name);
         DB_Helper.deleteMajor(name);
         return "redirect:/admin/view-majors";
     }
