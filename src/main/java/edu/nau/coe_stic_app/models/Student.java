@@ -1,11 +1,15 @@
 package edu.nau.coe_stic_app.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Student
 {
     private String uid;
     private String major;
     private String grad_term;
     private int grad_year;
+
+    public Student() {}
 
     public Student(String uid, String major, String grad_term, int grad_year)
     {
@@ -15,23 +19,54 @@ public class Student
         this.grad_year = grad_year;
     }
 
-    public String getUID()
-    {
-        return this.uid;
+    @JsonProperty("uid")
+    public String getUid() {
+        return uid;
     }
 
-    public String getMajor()
-    {
-        return this.major;
+    @JsonProperty("uid")
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getGradTerm()
-    {
-        return this.grad_term;
+    @JsonProperty("major")
+    public String getMajor() {
+        return major;
     }
 
-    public int getGradYear()
+    @JsonProperty("major")
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    @JsonProperty("gradTerm")
+    public String getGrad_term() {
+        return grad_term;
+    }
+
+    @JsonProperty("gradTerm")
+    public void setGrad_term(String grad_term) {
+        this.grad_term = grad_term;
+    }
+
+    @JsonProperty("gradYear")
+    public int getGrad_year() {
+        return grad_year;
+    }
+
+    @JsonProperty("gradYear")
+    public void setGrad_year(int grad_year) {
+        this.grad_year = grad_year;
+    }
+
+    @Override
+    public String toString()
     {
-        return this.grad_year;
+        return "Student{" +
+                "uid='" + uid + '\'' +
+                ", major='" + major + '\'' +
+                ", grad_term='" + grad_term + '\'' +
+                ", grad_year=" + grad_year +
+                '}';
     }
 }

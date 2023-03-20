@@ -5,9 +5,9 @@ import edu.nau.coe_stic_app.models.Major;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -30,9 +30,11 @@ public class MajorController
     }
 
     @RequestMapping(path = "/admin/add-major", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public String createMajorConfirm(Major major) throws Exception
+    public String createMajorConfirm(@RequestParam MultiValueMap paramMap) throws Exception
     {
-        DB_Helper.createMajor(major.getMajor());
+        System.out.println("createMajorConfirm(MultiValueMap paramMap) keySet(): " + paramMap.keySet()); //TODO: debugging
+        System.out.println("createMajorConfirm(MultiValueMap paramMap) major: " + paramMap.getFirst("major")); //TODO: debugging
+      DB_Helper.createMajor((String) paramMap.getFirst("major"));
         return "redirect:/admin/view-majors";
     }
 

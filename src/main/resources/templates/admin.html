@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher To-Do Students</title>
     <link rel="stylesheet" type="text/css" media="all"
-          href="../static/bootstrap/css/bootstrap.css" th:href="@{bootstrap/css/bootstrap.css}" />
+          href="/bootstrap/css/bootstrap.css" />
 </head>
 <body>
 <header>
     <div class="content-width">
-        <h1><img src="../static/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do  </h1>
+        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do  </h1>
         <h2> <strong>A project devoted to helping new student teachers.</strong> </h2>
     </div>
 </header>
@@ -21,29 +21,35 @@
     <div class = "row">
         <div class="col-sm">
             <h1>Students</h1>
-            <div class="accordion" th:id="${student.getUID()}-accordion" th:each="student: ${map.keySet()}">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" th:id="${student.getUID()}-heading">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="data-bs-target=${student.getUID()}-collapse" aria-expanded="true" th:attr="aria-controls=${student.getUID()}-collapse">
-                            <h5 th:text="${student.getUID()}"></h5>
-                        </button>
-                    </h2>
-                    <div th:id="${student.getUID()}-collapse" class="accordion-collapse collapse show" th:attr="aria-labelledby=${student.getUID()}-heading" th:attr="data-bs-parent=${student.getUID()}-accordion">
-                        <div class="accordion-body" th:each="task: ${map.get(student)}">
-                            <p th:text="${task.getTitle()} - ${task.getStatus()}"></p>
+<!--            <div class="accordion" th:id="${student.getUid() + '-accordion'}" th:each="student: ${studentArray.keySet().iterator()}">-->
+<!--            <div th:each="student: ${studentArray.keySet().iterator()}">-->
+<!--                <div class="accordion" th:id="${student.getUid() + '-accordion'}">-->
+                <div class="accordion" id="student-accordion">
+<!--                    <div class="accordion-item">-->
+                    <div class="accordion-item" th:each="student: ${map.keySet().iterator()}">
+                        <h2 class="accordion-header" th:id="${student.getUid() + '-heading'}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="${'#' + student.getUid() + '-collapse'}" aria-expanded="true" th:aria-controls="${student.getUid() + '-collapse'}">
+                                <h5 th:text="${student.getUid()}"></h5>
+                            </button>
+                        </h2>
+                        <div th:id="${student.getUid() + '-collapse'}" class="accordion-collapse collapse show" th:aria-labelledby="${student.getUid() + '-heading'}" data-bs-parent="student-accordion">
+                            <div class="accordion-body" th:each="task: ${map.get(student)}">
+                                <!-- TODO: title is not part of requirements instance -->
+                                <!-- <p th:text="${task.getTitle() + ' - ' +  task.getStatus()}"></p> -->
+                                <p th:text="${'Task Title Temp - ' +  task.getStatus()}"></p>
+                                <!--TODO: implement buttons-->
+                                <button>Download</button>
+                                <button>Approve</button>
+                                <button>Deny</button>
+                            </div>
                         </div>
-
-                        <button>Download</button>
-
-                        <button>Approve</button>
-                        <button>Deny</button>
                     </div>
                 </div>
-            </div>
+<!--            </div>-->
         </div>
     </div>
 </div>
-<script src="../static/bootstrap/js/bootstrap.js" th:src="@{../static/bootstrap/js/bootstrap.js}"></script>
+<script src="/bootstrap/js/bootstrap.js"></script>
 
 
 </body>

@@ -35,7 +35,7 @@ public class DB_Helper
 
       for(Student student : students)
       {
-         if(student.getUID().equals(uid))
+         if(student.getUid().equals(uid))
          {
             return true;
          }
@@ -110,13 +110,32 @@ public class DB_Helper
       Response response = client.newCall(request).execute();
       ObjectMapper mapper = new ObjectMapper();
 
+
       try
       {
-         List<Student> students = mapper.readValue(response.body().byteStream(), new TypeReference<List<Student>>(){});
+         //TODO: debugging testing the pasing of one student object
+         String studentJson = "{\n" +
+                 "  \"uid\" : \"6e8d6c69af58e73c7248364aa59b0c257f6ba1d19782eb9e38890a61ada948ef\",\n" +
+                 "  \"major\" : \"Computer Science\",\n" +
+                 "  \"gradTerm\" : \"Spring\",\n" +
+                 "  \"gradYear\" : 2023\n" +
+                 "}";
+         Student student = mapper.readValue(studentJson, Student.class);
+         System.out.println("getAllStudents(): student.toString(): " + student.toString());
+         //TODO: end debugging
+
+         String responseString = response.body().string();
+         System.out.printf("getAllStudents(): responseString: %s\n", responseString); //TODO: debugging
+         List<Student> students = mapper.readValue(responseString, new TypeReference<List<Student>>(){});
+         System.out.println("getAllStudents(): I am going to print a list of the java objects"); //TODO: debugging
+         students.forEach(System.out::println); //TODO: debugging
+         System.out.println("END getAllStudents()"); //TODO: debugging
+
          return students;
       }
       catch(Exception e)
       {
+         System.out.println("Failed to parse JSON response.");
          return null;
       }
    }

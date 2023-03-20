@@ -1,5 +1,7 @@
 package edu.nau.coe_stic_app.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Major
 {
     private String major;
@@ -11,8 +13,21 @@ public class Major
         this.major = major;
     }
 
-    public String getMajor()
+    @JsonProperty("major")
+    public String getMajor() {
+        return major;
+    }
+
+    @JsonProperty("major")
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    @Override
+    public String toString()
     {
-        return this.major;
+        return "Major{" +
+                "major='" + major + '\'' +
+                '}';
     }
 }

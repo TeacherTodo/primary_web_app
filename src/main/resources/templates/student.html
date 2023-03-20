@@ -18,6 +18,8 @@
     </div>
 </header>
 
+<!--IMPORTANT: https://stackoverflow.com/questions/37935062/could-not-parse-as-assignation-expression-attrs-defaultattrs -->
+
 <div class="container-md">
     <div class="row">
         <div class="col-md">
@@ -25,16 +27,18 @@
             <div th:each="task, itrStat: ${TaskArray}" class="accordion" th:id="${task.getID()} + '-accordion'">
                 <div class="accordion-item">
                     <h2 class="accordion-header" th:id="${task.getID()} + '-heading'">
-<!--                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="'data-bs-target=' + ${task.getID()} + '-collapse, aria-controls=' + ${task.getID()} + '-collapse'" aria-expanded="true" />-->
-                        <h5 th:text="${requirements[itrStat.index].getTitle()}"></h5>
+<!--                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="'data-bs-target=' + ${task.getID().toString()} + '-collapse, aria-controls=' + ${task.getID().toString()} + '-collapse'" aria-expanded="true">-->
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="${task.getID() + '-collapse'}" th:aria-controls="${task.getID() + '-collapse'}" aria-expanded="true">
+                            <h5 th:text="${requirements[itrStat.index].getTitle()}"></h5>
                         </button>
                     </h2>
-<!--                    <div th:id="${task.getID()} + '-collapse'" class="accordion-collapse collapse show" th:attr="aria-labelledby=${task.getID()} + '-heading, data-bs-parent=' + ${task.getID()} + '-accordion'">-->
-<!--                        <div class="accordion-body">-->
-<!--                            <p th:text="${task.getDescription()}"></p>-->
-<!--                            <p th:text="'Task Status - ' + ${task.getStatus()}"></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
+<!--                    <div th:id="${task.getID() + '-collapse'}" class="accordion-collapse collapse show" th:attr="aria-labelledby=${task.getID()} + '-heading, data-bs-parent=' + ${task.getID()} + '-accordion'">-->
+                    <div th:id="${task.getID() + '-collapse'}" class="accordion-collapse collapse show" th:aria-labelledby="${task.getID() + '-heading'}" th:data-bs-parent="${task.getID()} + '-accordion'">
+                        <div class="accordion-body">
+                            <p th:text="${requirements[itrStat.index].getDescription()}"></p>
+                            <p th:text="'Task Status - ' + ${task.getStatus()}"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
