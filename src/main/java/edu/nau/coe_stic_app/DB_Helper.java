@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.nau.coe_stic_app.models.*;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Value;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +12,22 @@ public class DB_Helper
 {
    //@Value("${api.url}:http://localhost:8888")
    private static String apiUrl = "http://localhost:8888/api";
+
+   public static byte[] getFileContent(String guid, String fileExtension) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/document-content/" + guid + "/" + fileExtension).build();
+      Response response = client.newCall(request).execute();
+      return response.body().bytes();
+   }
+
+   public static void uploadFileContent(String guid, String fileExtension, byte data[]) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = RequestBody.create(data);
+      Request request = new Request.Builder().url(apiUrl + "/document-content/" + guid + "/" + fileExtension).post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
    public static String getUserRole(String uid) throws IOException
    {

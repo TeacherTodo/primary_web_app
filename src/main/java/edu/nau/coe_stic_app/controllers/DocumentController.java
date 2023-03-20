@@ -11,11 +11,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class DocumentController
 {
+    @RequestMapping(path = "/get-document/{guid}/{fileExtension}", method = RequestMethod.GET)
+    public byte[] getFileContent(@PathVariable String guid, @PathVariable String fileExtension) throws IOException
+    {
+        return DB_Helper.getFileContent(guid, fileExtension);
+    }
+
+    @RequestMapping(path = "/upload-document/{guid}/{fileExtension}", method = RequestMethod.POST)
+    public String postFile(@PathVariable String guid, @PathVariable String fileExtension, @RequestBody byte data[]) throws IOException
+    {
+        DB_Helper.uploadFileContent(guid, fileExtension, data);
+        return "redirect:/dashboard";
+    }
+
     @RequestMapping(path = "/admin/all-docs", method = RequestMethod.GET)
     public String allDocs(Model model) throws Exception
     {
