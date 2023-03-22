@@ -5,16 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Requirement
 {
-/*
-{
-    "id": 1,
-    "major": "Computer Science",
-    "title": "Submit Score of Arizona Teacher Proficiency Assessment",
-    "description": "You must upload a passing score for administrator review on the required subject knowledge portion of the Arizona Teacher Proficiency Assessment that corresponds to the teaching certificate that you are pursuing.",
-    "documentationRequired": true
-}
- */
-
     @JsonProperty("id")
     public int id;
     @JsonProperty("major")

@@ -7,6 +7,14 @@ import java.util.Date;
 
 public class RequirementInstance
 {
+
+    /*
+     * Statuses:
+     *  Complete
+     *  Incomplete
+     *  In Progress
+     */
+
     private int id;
     @JsonProperty("requirement_id")
     private int requirement_id;
