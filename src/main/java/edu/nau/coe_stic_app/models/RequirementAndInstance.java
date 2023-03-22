@@ -1,5 +1,6 @@
 package edu.nau.coe_stic_app.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -51,12 +52,19 @@ public class RequirementAndInstance {
 
         // create a map of requirements
         Map<Integer, Requirement> reqIdToRequirement = requirements.stream().collect(Collectors.toMap(Requirement::getID, Function.identity()));
+        List<RequirementAndInstance> requirementAndInstanceList = new ArrayList<>();
 
-        //TODO: we now have a list, now we need to map reqInstance to req
+        for (RequirementInstance reqInstance : requirementInstances) {
+            RequirementAndInstance reqAndInstance;
+            Requirement req = reqIdToRequirement.get(reqInstance.getRequirementID());
 
-        return null;
+            reqAndInstance = new RequirementAndInstance(req, reqInstance);
+
+            requirementAndInstanceList.add(reqAndInstance);
+        }
+
+        return requirementAndInstanceList;
     }
-
 
     Requirement requirement;
     RequirementInstance requirementInstance;

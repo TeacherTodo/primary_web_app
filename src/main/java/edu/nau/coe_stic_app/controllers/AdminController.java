@@ -5,6 +5,7 @@ import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -64,20 +65,38 @@ public class AdminController
     /*
      * Filter by Major
      */
+    @GetMapping(value="admin", params="filter=major")
     public String filterByMajor(Model model) throws IOException {
         List<Student> students = DB_Helper.getAllStudents();
-        Map<String, List<Student>> studentsByMajor = new HashMap<>();
+        List<Requirement> requirements = DB_Helper.getAllRequirements();
+        Map<String, Map<Student, List<RequirementAndInstance>>> studentsAndRequirementByMajor = new HashMap<>();
+
         for (Student student : students) {
+            List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
+            List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);
+
             String major = student.getMajor();
-            if (!studentsByMajor.containsKey(major)) {
-                studentsByMajor.put(major, new ArrayList<>());
+
+            if (!studentsAndRequirementByMajor.containsKey(major)) {
+                studentsAndRequirementByMajor.put(major, new HashMap<>());
             }
-            studentsByMajor.get(major).add(student);
+
+            studentsAndRequirementByMajor.get(major).put(student, studentRequirementAndInstances);
         }
 
-        model.addAttribute("studentsByMajor", studentsByMajor);
+        studentsAndRequirementByMajor.forEach((major, mapOfStudents) -> {
+            System.out.println("Major: " + major);
+            mapOfStudents.forEach((student, listOfReq) -> {
+                System.out.println("\tStudent: " + student);
+                System.out.println("\tlistOfReq: " + listOfReq);
+                System.out.println("\t===================================");
+            });
+            System.out.println("+++++++++++++++++++++++++++++++");
+        });
 
-        return "admin-filter";
+//        model.addAttribute("studentsByMajor", studentsByMajor);
+
+        return "testFile";
     }
 
     /*
