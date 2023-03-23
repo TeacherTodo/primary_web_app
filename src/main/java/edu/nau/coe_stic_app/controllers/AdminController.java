@@ -94,9 +94,9 @@ public class AdminController
             System.out.println("+++++++++++++++++++++++++++++++");
         });
 
-//        model.addAttribute("studentsByMajor", studentsByMajor);
+        model.addAttribute("map", studentsAndRequirementByMajor);
 
-        return "testFile";
+        return "admin-filter";
     }
 
     /*
