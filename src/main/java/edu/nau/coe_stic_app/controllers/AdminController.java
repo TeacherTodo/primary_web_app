@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -146,21 +147,28 @@ public class AdminController
         return "admin-filter";
     }
 
-    public String findStudent(Model model) throws IOException {
-        //TODO: create a form to get the student's email that will be passed into the controller
-        String studentEmail = "someEmail"; //TODO change
-        String studentUid = Hashing.sha256().hashString(studentEmail, StandardCharsets.UTF_8).toString();
-        Student student = DB_Helper.getStudent(studentUid);
-        List<RequirementInstance> requirementInstances = DB_Helper.getStudentRequirements(studentUid);
-        //TODO might not want to use a map, but it might be easier if we keep the interface uniform
-        Map<Student, List<RequirementInstance>> studentRequirementMap = new HashMap<>();
-        studentRequirementMap.put(student, requirementInstances);
+    /*
+     * Filter Students by email aka studentUid
+     */
+    @GetMapping(value="admin", params="id")
+    public String findStudent(@RequestParam(name="id") String studentId, Model model) throws IOException {
+        model.addAttribute("value", studentId);
+        return "test";
 
-        //TODO: probably want to add an attribute telling the model what we are filtering by.
-        model.addAttribute("studentRequirementMap", studentRequirementMap);
-
-        //TODO: finish creating the template to display the filtered students
-        return "admin-filter";
+//        //TODO: create a form to get the student's email that will be passed into the controller
+//        String studentEmail = "someEmail"; //TODO change
+//        String studentUid = Hashing.sha256().hashString(studentEmail, StandardCharsets.UTF_8).toString();
+//        Student student = DB_Helper.getStudent(studentUid);
+//        List<RequirementInstance> requirementInstances = DB_Helper.getStudentRequirements(studentUid);
+//        //TODO might not want to use a map, but it might be easier if we keep the interface uniform
+//        Map<Student, List<RequirementInstance>> studentRequirementMap = new HashMap<>();
+//        studentRequirementMap.put(student, requirementInstances);
+//
+//        //TODO: probably want to add an attribute telling the model what we are filtering by.
+//        model.addAttribute("studentRequirementMap", studentRequirementMap);
+//
+//        //TODO: finish creating the template to display the filtered students
+//        return "admin-filter";
     }
 
     /*
