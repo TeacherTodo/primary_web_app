@@ -143,7 +143,6 @@ public class AdminController
         //TODO: probably want to add an attribute telling the model what we are filtering by.
         model.addAttribute("studentRequirementMap", studentRequirementMap);
 
-        //TODO: finish creating the template to display the filtered students
         return "admin-filter";
     }
 

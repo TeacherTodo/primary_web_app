@@ -58,6 +58,10 @@ public class RequirementAndInstance {
             RequirementAndInstance reqAndInstance;
             Requirement req = reqIdToRequirement.get(reqInstance.getRequirementID());
 
+            System.out.println("RequirementAndInstance.create() reqInstance: " + reqInstance);
+//            System.out.println("RequirementAndInstance.create() req: " + req);
+            System.out.println("RequirementAndInstance.create() req: " + req);
+
             reqAndInstance = new RequirementAndInstance(req, reqInstance);
 
             requirementAndInstanceList.add(reqAndInstance);

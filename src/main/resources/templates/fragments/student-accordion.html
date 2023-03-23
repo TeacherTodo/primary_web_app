@@ -25,18 +25,13 @@
       <div th:id="${student.getUid() + '-collapse'}" class="accordion-collapse collapse"
            th:aria-labelledby="${student.getUid() + '-heading'}" data-bs-parent="student-accordion">
         <div class="accordion-body" th:each="reqAndInstance: ${map.get(student)}">
-          <!-- TODO: used for debugging-->
-          <!--<p th:text="${reqAndInstance.toString()}"></p>-->
-          <!-- TODO: getRequirement is returning null -->
-<!--          <h3 th:text="${reqAndInstance.getRequirement().getTitle()}"></h3>-->
-          <h3 th:text="${'Title'}"></h3>
+          <h3 th:text="${reqAndInstance.getRequirement().getTitle()}"></h3>
           <th:block th:switch="${reqAndInstance.getRequirementInstance().getStatus()}">
             <h4 th:case="'Complete'" class="text-bg-success">Status: Complete</h4>
             <h4 th:case="'In Progress'" class="text-bg-primary">Status: In Progress</h4>
             <h4 th:case="'Incomplete'" class="text-bg-secondary">Status: Incomplete</h4>
           </th:block>
-          <!-- TODO: getRequirement is returning null -->
-<!--          <p th:text="${reqAndInstance.getRequirement().getDescription()}"></p>-->
+          <p th:text="${reqAndInstance.getRequirement().getDescription()}"></p>
           <!--TODO: implement buttons-->
           <button>Download</button>
           <button>Approve</button>
