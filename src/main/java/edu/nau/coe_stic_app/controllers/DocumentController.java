@@ -1,18 +1,18 @@
 package edu.nau.coe_stic_app.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.Files;
 import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.CreateDocumentRequest;
 import edu.nau.coe_stic_app.models.Document;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class DocumentController
@@ -49,11 +49,17 @@ public class DocumentController
     }
 
     @RequestMapping(path = "/create-document", method = RequestMethod.POST)
-    public String createDoc(@RequestBody String jsonString) throws Exception
+    public String createDoc(@RequestPart MultipartFile file, @RequestPart String student_uid, @RequestPart String requirement_uid) throws Exception
     {
         ObjectMapper mapper = new ObjectMapper();
-        CreateDocumentRequest req = mapper.readValue(jsonString, CreateDocumentRequest.class);
+        String guid = UUID.randomUUID().toString();
+        CreateDocumentRequest req = new CreateDocumentRequest();
+        req.student_uid = student_uid;
+        req.file_extension = Files.getFileExtension(file.getOriginalFilename());
+        req.requirement_instance_id = Integer.parseInt(requirement_uid);
+        req.file_guid = guid;
         DB_Helper.createDocument(req);
+        DB_Helper.uploadFileContent(req.file_guid, req.file_extension, file.getBytes());
         return "redirect:/dashboard";
     }
 
