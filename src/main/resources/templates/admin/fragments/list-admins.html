@@ -11,8 +11,9 @@
 <!--
   given a map: Map<Student, List<RequirementAndInstance>>
 -->
-<th:block th:fragment="student-accordion (map)">
+<th:block th:fragment="student-accordion (admins)" class="accordion" id="student-accordion">
   <div class="accordion">
+    <!--    <p th:text="${'inside student-accordion ' + map.getClass()}"></p>-->
     <div class="accordion-item" th:each="student: ${map.keySet().iterator()}">
       <h2 class="accordion-header" th:id="${student.getUid() + '-heading'}">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

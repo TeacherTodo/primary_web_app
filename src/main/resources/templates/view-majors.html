@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>View Majors</title>
-  </head>
-  <body>
-    <h2>View Majors</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Major</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="major : ${majors}">
-          <td th:text="${major.getMajor()}"></td>
-          <td>
-            <form th:action="${'/admin/delete-major/' + major.getMajor()}" method="get" >
-              <button type="submit" class="btn btn-danger" >Delete</button>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Majors</title>
+  <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+  <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/admin-nav}"></div>
+<header>
+  <div class="content-width">
+    <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+    <h2><strong>A project devoted to helping new student teachers.</strong></h2>
+  </div>
+</header>
+
+<h2>View Majors</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Major</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="major : ${majors}">
+    <td th:text="${major.getMajor()}"></td>
+    <td>
+      <form th:action="${'/admin/delete-major/' + major.getMajor()}" method="get" >
+        <button type="submit" class="btn btn-danger" >Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
 </html>

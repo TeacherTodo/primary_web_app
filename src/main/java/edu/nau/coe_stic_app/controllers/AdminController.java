@@ -18,11 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class AdminController
-{
+public class AdminController {
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws IOException
-    {
+    public String adminDashboard(Model model) throws IOException {
         System.out.println("AdminController adminDashboard()"); //TODO: debugging
         System.out.flush(); //TODO: debugging
 
@@ -36,9 +34,9 @@ public class AdminController
 //        students.forEach(System.out::println);
         //TODO: end debugging
 
-        for(int index = 0; index < students.size(); index++)
-        {
-            List<RequirementInstance> requirementsInstances = DB_Helper.getStudentRequirements(students.get(index).getUid());
+        for (int index = 0; index < students.size(); index++) {
+            List<RequirementInstance> requirementsInstances = DB_Helper.getStudentRequirements(students.get(index)
+                                                                                                       .getUid());
             //TODO: debugging
 //            System.out.println("AdminController requirements: " + requirements);
             //TODO: end debugging
@@ -66,7 +64,7 @@ public class AdminController
     /*
      * Filter by Major
      */
-    @GetMapping(value="admin", params="filter=major")
+    @GetMapping(value = "admin", params = "filter=major")
     public String filterByMajor(Model model) throws IOException {
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
@@ -82,7 +80,8 @@ public class AdminController
                 studentsAndRequirementByMajor.put(major, new HashMap<>());
             }
 
-            studentsAndRequirementByMajor.get(major).put(student, studentRequirementAndInstances);
+            studentsAndRequirementByMajor.get(major)
+                                         .put(student, studentRequirementAndInstances);
         }
 
         studentsAndRequirementByMajor.forEach((major, mapOfStudents) -> {
@@ -147,11 +146,12 @@ public class AdminController
         return "admin-filter";
     }
 
+
     /*
      * Filter Students by email aka studentUid
      */
-    @GetMapping(value="admin", params="id")
-    public String findStudent(@RequestParam(name="id") String studentId, Model model) throws IOException {
+    @GetMapping(value = "admin", params = "id")
+    public String findStudent(@RequestParam(name = "id") String studentId, Model model) throws IOException {
         model.addAttribute("value", studentId);
         return "test";
 

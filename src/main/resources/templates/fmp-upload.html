@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Teacher To-Do | FMP Upload</title>
-        <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.css}">
-    </head>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher To-Do Students</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+    <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/admin-nav}"></div>
+<header>
+    <div class="content-width">
+        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+        <h2><strong>A project devoted to helping new student teachers.</strong></h2>
+    </div>
+</header>
 
-    <body>
-        <h2>Upload New FileMakerPro Export Document</h2>
-        <form action="fmp-upload.html" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="fmp-export">Upload Export File: </label>
-                <input type="file" class="form-control" id="fmp-export" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </body>
+<h2>Upload New FileMakerPro Export Document</h2>
+<form action="fmp-upload.html" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="fmp-export">Upload Export File: </label>
+        <input type="file" class="form-control" id="fmp-export" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
 </html>

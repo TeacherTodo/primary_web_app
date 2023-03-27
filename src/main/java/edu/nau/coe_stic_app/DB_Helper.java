@@ -26,6 +26,11 @@ public class DB_Helper
       OkHttpClient client = new OkHttpClient();
       RequestBody body = RequestBody.create(data);
       Request request = new Request.Builder().url(apiUrl + "/document-content/" + guid + "/" + fileExtension).post(body).build();
+
+      //TODO: testing
+      System.out.println("uploadFileContent() request: " + request);
+      System.out.println("uploadFileContent() body: " + body.contentType());
+
       Response response = client.newCall(request).execute();
    }
 
@@ -88,7 +93,7 @@ public class DB_Helper
       {
          String responseString = response.body().string();
          //responseString = removeExtraField(responseString);
-         System.out.printf("Response String: %s\n", responseString);
+         System.out.printf("getStudentRequirements(String uid) Response String: %s\n", responseString);
          List<RequirementInstance> requirements = mapper.readValue(responseString, new TypeReference<List<RequirementInstance>>(){});
          return requirements;
       }
@@ -448,6 +453,10 @@ public class DB_Helper
    {
       OkHttpClient client = new OkHttpClient();
       ObjectMapper mapper = new ObjectMapper();
+
+      //TODO: testing
+      System.out.println("createDocument() req: " + mapper.writeValueAsString(req));
+
       RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
       Request request = new Request.Builder().url(apiUrl + "/documents").post(body).build();
       Response response = client.newCall(request).execute();

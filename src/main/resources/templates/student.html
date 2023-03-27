@@ -1,51 +1,54 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher To-Do Tasks</title>
-    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css" />
-
+    <title>Teacher To-Do Student Tasks</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+    <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
 <body>
 <header>
     <div class="content-width">
-        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do  </h1>
-        <h2> <strong>A project devoted to helping new student teachers.</strong> </h2>
-        <h2 th:text="'Hello ' + ${studentName}"></h2>
+        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+        <h2><strong>A project devoted to helping new student teachers.</strong></h2>
     </div>
 </header>
-
-<!--IMPORTANT: https://stackoverflow.com/questions/37935062/could-not-parse-as-assignation-expression-attrs-defaultattrs -->
-
 <div class="container-md">
     <div class="row">
-        <div class="col-md">
-            <h1>Upcoming Tasks</h1>
-            <div th:each="task, itrStat: ${TaskArray}" class="accordion" th:id="${task.getID()} + '-accordion'">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" th:id="${task.getID()} + '-heading'">
-<!--                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="'data-bs-target=' + ${task.getID().toString()} + '-collapse, aria-controls=' + ${task.getID().toString()} + '-collapse'" aria-expanded="true">-->
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="${task.getID() + '-collapse'}" th:aria-controls="${task.getID() + '-collapse'}" aria-expanded="true">
-                            <h5 th:text="${requirements[itrStat.index].getTitle()}"></h5>
-                        </button>
-                    </h2>
-<!--                    <div th:id="${task.getID() + '-collapse'}" class="accordion-collapse collapse show" th:attr="aria-labelledby=${task.getID()} + '-heading, data-bs-parent=' + ${task.getID()} + '-accordion'">-->
-                    <div th:id="${task.getID() + '-collapse'}" class="accordion-collapse collapse show" th:aria-labelledby="${task.getID() + '-heading'}" th:data-bs-parent="${task.getID()} + '-accordion'">
-                        <div class="accordion-body">
-                            <p th:text="${requirements[itrStat.index].getDescription()}"></p>
-                            <p th:text="'Task Status - ' + ${task.getStatus()}"></p>
-                            <button>Upload</button>
-                        </div>
+        <h1 th:text="'Student ID: ' + ${student.getUid()}"></h1>
+        <h2>Requirements</h2>
+    </div>
+    <div class="row" id="studentAccordion">
+        <div class="accordion">
+            <div class="accordion-item" th:each="req, itrStat: ${requirementAndInstances}">
+                <h2 class="accordion-header" th:id="${itrStat.index + '-heading'}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            th:data-bs-target="${'#' + itrStat.index + '-collapse'}" aria-expanded="true"
+                            th:aria-controls="${itrStat.index + '-collapse'}">
+                        <h5 th:text="${req.getRequirement().getTitle()}"></h5>
+                    </button>
+                </h2>
+                <div th:id="${itrStat.index + '-collapse'}" class="accordion-collapse collapse"
+                     th:aria-labelledby="${itrStat.index + '-heading'}"
+                     data-bs-parent="studentAccordion">
+                    <div class="accordion-body">
+                        <p th:text="${req.getRequirement().getDescription()}"></p>
+                        <p th:text="'Task Status - ' + ${req.getRequirementInstance().getStatus()}"></p>
+                        <form action="/create-document" method="post" enctype="multipart/form-data">
+                            <input type="file" name="file">
+                            <input type="hidden" name="student_uid" th:value="${student.getUid()}">
+                            <!--TODO: for requirement_uid it might be asking for the req, and i am giving the req_instance id-->
+                            <input type="hidden" name="requirement_uid" th:value="${req.getRequirementInstance().getID()}">
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

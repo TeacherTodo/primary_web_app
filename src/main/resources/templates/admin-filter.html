@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teacher To-Do</title>
+  <title>Filter Students</title>
   <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
   <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
@@ -16,8 +16,6 @@
     <h2><strong>A project devoted to helping new student teachers.</strong></h2>
   </div>
 </header>
-<label for="filter"> Filter Students</label>
-<input type="search" id="filter" name="filter">
 <div class="container-md">
   <div class="row">
     <div class="col-sm">
@@ -25,7 +23,6 @@
       <th:block th:replace="~{fragments/admin-filter-nav}"></th:block>
       <th:block th:each="major: ${map.keySet().iterator()}">
         <h1 th:text="${major}"></h1>
-<!--          <p th:text="${'inside of admin-filter ' + students}"></p>-->
           <th:block th:replace="~{fragments/student-accordion (map=${map.get(major)})}"></th:block>
         </th:block>
       </th:block>
