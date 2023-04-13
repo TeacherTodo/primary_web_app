@@ -17,7 +17,7 @@ public class StudentObjectController
     {
         ObjectMapper mapper = new ObjectMapper();
         CreateStudentRequest req = mapper.readValue(jsonString, CreateStudentRequest.class);
-        DB_Helper.createStudent(req.uid, req.major, req.grad_term, req.grad_year);
+        DB_Helper.createStudent(req.uid, req.major, req.grad_term, req.grad_year, req.first_name, req.last_name);
         return "redirect:/dashboard";
     }
 

@@ -8,6 +8,8 @@ public class Student
     private String major;
     private String grad_term;
     private int grad_year;
+    private String first_name;
+    private String last_name;
 
     public Student() {}
 
@@ -43,6 +45,12 @@ public class Student
     public String getGrad_term() {
         return grad_term;
     }
+
+    @JsonProperty("firstName")
+    public String getFirst_name() { return first_name; }
+
+    @JsonProperty("lastName")
+    public String getLastName() { return last_name; }
 
     @JsonProperty("gradTerm")
     public void setGrad_term(String grad_term) {

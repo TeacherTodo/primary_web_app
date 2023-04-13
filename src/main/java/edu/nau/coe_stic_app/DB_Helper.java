@@ -381,9 +381,9 @@ public class DB_Helper
       Response response = client.newCall(request).execute();
    }
 
-   public static void createStudent(String uid, String major, String grad_term, int grad_year) throws Exception
+   public static void createStudent(String uid, String major, String grad_term, int grad_year, String first_name, String last_name) throws Exception
    {
-      CreateStudentRequest req = new CreateStudentRequest(uid, major, grad_term, grad_year);
+      CreateStudentRequest req = new CreateStudentRequest(uid, major, grad_term, grad_year, first_name, last_name);
       ObjectMapper mapper = new ObjectMapper();
       OkHttpClient client = new OkHttpClient();
       RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
