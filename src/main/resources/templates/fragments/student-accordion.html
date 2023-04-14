@@ -18,7 +18,7 @@
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 th:data-bs-target="${'#' + student.getUid() + '-collapse'}" aria-expanded="true"
                 th:aria-controls="${student.getUid() + '-collapse'}">
-          <h5 th:text="${student.getUid()}"></h5>
+          <h5 th:text="${student.getFirst_name() + ' ' + student.getLast_name()}"></h5>
         </button>
       </h2>
       <div th:id="${student.getUid() + '-collapse'}" class="accordion-collapse collapse"
@@ -32,9 +32,9 @@
           </th:block>
           <p th:text="${reqAndInstance.getRequirement().getDescription()}"></p>
           <!--TODO: implement buttons-->
-          <button>Download</button>
-          <button>Approve</button>
-          <button>Deny</button>
+          <button disabled>Download</button>
+          <button disabled>Approve</button>
+          <button disabled>Deny</button>
         </div>
       </div>
     </div>
