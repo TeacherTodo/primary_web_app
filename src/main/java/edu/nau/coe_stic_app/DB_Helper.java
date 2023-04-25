@@ -529,4 +529,17 @@ public class DB_Helper
       Request request = new Request.Builder().url(apiUrl + "/document/" + guid).delete(body).build();
       Response response = client.newCall(request).execute();
    }
+
+   public static Document getDocumentByGUID(String guid, String studentUID) throws Exception {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/document/" + guid + "/" + studentUID).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
+      try {
+         Document doc = mapper.readValue(response.body().byteStream(), Document.class);
+         return doc;
+      } catch (Exception e) {
+         return null;
+      }
+   }
 }
