@@ -20,19 +20,32 @@ import java.util.Map;
 @Controller
 public class AdminController {
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws IOException {
+    public String adminDashboard(Model model) throws Exception {
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
+        HashMap<String, Document > docuMap = new HashMap<>();
 
         for (Student student : students) {
             List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
             List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);
 
             map.put(student, studentRequirementAndInstances);
+
+            for( int indice = 0; indice < studentRequirements.size(); indice++ )
+            {
+                if( studentRequirements.get(indice).getDocGUID() != null )
+                {
+                    docuMap.put(studentRequirements.get(indice).getDocGUID(), DB_Helper.getDocumentByGUID(studentRequirements.get(indice).getDocGUID(), studentRequirements.get(indice).getStudentUID()));
+                }
+            }
         }
 
+
+
         model.addAttribute("map", map);
+        model.addAttribute("docuMap", docuMap);
+
         return "admin";
     }
 

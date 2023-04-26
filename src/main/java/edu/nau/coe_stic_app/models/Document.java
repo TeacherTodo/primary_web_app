@@ -56,4 +56,18 @@ public class Document
     {
         return this.upload_timestamp;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Document{" +
+                "guid='" + guid + '\'' +
+                ", file_extension='" + file_extension + '\'' +
+                ", status='" + status + '\'' +
+                ", requirement_instance_id=" + requirement_instance_id +
+                ", student='" + student + '\'' +
+                ", student_name='" + student_name + '\'' +
+                ", upload_timestamp=" + upload_timestamp +
+                '}';
+    }
 }
