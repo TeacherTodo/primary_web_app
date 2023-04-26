@@ -21,15 +21,11 @@ import java.util.Map;
 public class AdminController {
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
     public String adminDashboard(Model model) throws Exception {
-        System.out.println("AdminController adminDashboard()"); //TODO: debugging
-        System.out.flush(); //TODO: debugging
-
-//        HashMap<Student, RequirementInstance[]> map = new HashMap<Student, RequirementInstance[]>();
-        HashMap<Student, List<RequirementInstance>> map = new HashMap<>();
-        // key = uid, values document object
-        HashMap<String, Document > docuMap = new HashMap<>();
-        List<Requirement> requirements = DB_Helper.getAllRequirements();
         List<Student> students = DB_Helper.getAllStudents();
+        List<Requirement> requirements = DB_Helper.getAllRequirements();
+        Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
+        HashMap<String, Document > docuMap = new HashMap<>();
+
 
         //TODO: debugging
 //        System.out.println("AdminController students: " + students);
@@ -54,21 +50,23 @@ public class AdminController {
                 }
             }
 
-            //TODO: debugging
-//            System.out.println("AdminController END OF LOOP");
-            //TODO: end debugging
+            map.put(student, studentRequirementAndInstances);
+
+            for( int indice = 0; indice < studentRequirements.size(); indice++ )
+            {
+                if( studentRequirements.get(indice).getDocGUID() != null )
+                {
+                    docuMap.put(studentRequirements.get(indice).getDocGUID(), DB_Helper.getDocumentByGUID(studentRequirements.get(indice).getDocGUID(), studentRequirements.get(indice).getStudentUID()));
+                }
+            }
         }
 
-        //TODO: debugging
-//        System.out.println("AdminController OUT OF LOOP");
-        //TODO: end debugging
 
-        //TODO: debugging
-//        System.out.println("AdminController map: " + map);
-        //TODO: end debugging
 
         model.addAttribute("map", map);
         model.addAttribute("docuMap", docuMap);
+
+
         return "admin";
     }
 

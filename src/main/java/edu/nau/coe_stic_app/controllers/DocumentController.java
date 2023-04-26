@@ -70,7 +70,7 @@ public class DocumentController
         req.file_guid = guid;
 
         //TODO: i need to fix this
-        System.out.println("req: " + req);
+        System.out.println("/create-document endpoint req: " + req);
         DB_Helper.createDocument(req);
         DB_Helper.uploadFileContent(req.file_guid, req.file_extension, file.getBytes());
 //        return "redirect:/dashboard";
