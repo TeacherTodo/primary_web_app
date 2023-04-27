@@ -1,26 +1,23 @@
 <!doctype html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <span class="navbar-brand" href="#">Filter By:</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/admin?filter=major">Major</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin?filter=status">Status</a>
-                </li>
-            </ul>
-            <form class="d-flex" action="">
-                <input id="email" name="email" class="form-control me-2" type="search" placeholder="E-mail" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<nav th:fragment="admin-filter-nav" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Filter by:</span>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link" href="/admin?filter=major">Major</a></li>
+  <!-- I could do a drop down that is generated which lists all the majors-->
+<!--      <li class="nav-item"><a class="nav-link" href="/admin">Year</a><a class</li>-->
+<!--      <li class="nav-item"><a class="nav-link" href="/admin">Term</a><a class</li>-->
+    </ul>
+  </div>
 </nav>
 </body>
 </html>

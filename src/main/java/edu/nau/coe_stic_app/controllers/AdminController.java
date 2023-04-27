@@ -27,18 +27,14 @@ public class AdminController {
     }
 
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(HttpServletRequest req, Model model) throws Exception {
-        CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
-            return "redirect:/admin/unauthorized";
-        }
+    public String adminDashboard(Model model) throws IOException {
+        System.out.println("AdminController adminDashboard()"); //TODO: debugging
+        System.out.flush(); //TODO: debugging
 
-        List<Student> students = DB_Helper.getAllStudents();
+//        HashMap<Student, RequirementInstance[]> map = new HashMap<Student, RequirementInstance[]>();
+        HashMap<Student, List<RequirementInstance>> map = new HashMap<>();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
-        Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
-        HashMap<String, Document> docuMap = new HashMap<>();
-
+        List<Student> students = DB_Helper.getAllStudents();
 
         //TODO: debugging
 //        System.out.println("AdminController students: " + students);
@@ -55,34 +51,20 @@ public class AdminController {
 //            map.put(students.get(index), (RequirementInstance[]) requirements.toArray());
             map.put(students.get(index), requirementsInstances);
 
-            for( int indice = 0; indice < requirementsInstances.size(); indice++ )
-            {
-                if( requirementsInstances.get(indice).getDocGUID() != null )
-                {
-                    docuMap.put(requirementsInstances.get(indice).getDocGUID(), DB_Helper.getDocumentByGUID(requirementsInstances.get(indice).getDocGUID(), requirementsInstances.get(indice).getStudentUID()));
-                }
-            }
-
-            map.put(student, studentRequirementAndInstances);
-
-            for (int indice = 0; indice < studentRequirements.size(); indice++) {
-                if (studentRequirements.get(indice).getDocGUID() != null) {
-                    System.out.println("adminDashboard(Model model) DocGUID: " + studentRequirements.get(indice).getDocGUID());
-                    String docGUID = studentRequirements.get(indice).getDocGUID();
-                    // TODO: doc is null, fix this
-                    Document doc = DB_Helper.getDocumentByGUID(docGUID, studentRequirements.get(indice).getStudentUID());
-                    System.out.println("adminDashboard(Model model) doc: " + doc.toString());
-                    docuMap.put(docGUID, doc);
-                }
-            }
+            //TODO: debugging
+//            System.out.println("AdminController END OF LOOP");
+            //TODO: end debugging
         }
 
-        docuMap.forEach((k, v) -> {
-            System.out.println("adminDashboard(Model model) docuMap: " + k + " " + v);
-        });
+        //TODO: debugging
+//        System.out.println("AdminController OUT OF LOOP");
+        //TODO: end debugging
+
+        //TODO: debugging
+//        System.out.println("AdminController map: " + map);
+        //TODO: end debugging
 
         model.addAttribute("map", map);
-        model.addAttribute("docuMap", docuMap);
 
 
         return "admin";

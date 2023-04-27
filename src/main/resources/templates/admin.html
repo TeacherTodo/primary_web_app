@@ -21,7 +21,29 @@
         <div class="col-sm">
             <h1>Students</h1>
             <div th:replace="~{fragments/admin-filter-nav}"></div>
-            <th:block th:replace="~{fragments/student-accordion(map=${map}, docuMap=${docuMap})}"></th:block>
+            <div class="accordion" id="student-accordion">
+                <div class="accordion-item" th:each="student: ${map.keySet().iterator()}">
+                    <h2 class="accordion-header" th:id="${student.getUid() + '-heading'}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                th:data-bs-target="${'#' + student.getUid() + '-collapse'}" aria-expanded="true"
+                                th:aria-controls="${student.getUid() + '-collapse'}">
+                            <h5 th:text="${student.getUid()}"></h5>
+                        </button>
+                    </h2>
+                    <div th:id="${student.getUid() + '-collapse'}" class="accordion-collapse collapse"
+                         th:aria-labelledby="${student.getUid() + '-heading'}" data-bs-parent="student-accordion">
+                        <div class="accordion-body" th:each="task: ${map.get(student)}">
+                            <!-- TODO: title is not part of requirements instance -->
+                            <!-- <p th:text="${task.getTitle() + ' - ' +  task.getStatus()}"></p> -->
+                            <p th:text="${'Task Title Temp - ' +  task.getStatus()}"></p>
+                            <!--TODO: implement buttons-->
+                            <button>Download</button>
+                            <button>Approve</button>
+                            <button>Deny</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
