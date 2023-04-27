@@ -3,12 +3,13 @@ package edu.nau.coe_stic_app.controllers;
 import com.google.common.hash.Hashing;
 import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.*;
+import edu.nau.coe_stic_app.security.SecurityHelper;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,38 +19,27 @@ import java.util.Map;
 
 @Controller
 public class AdminController {
+    @RequestMapping(path = "/admin/unauthorized", method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "You are not authorized to access this page.")
+    public String unauthorizedAccess()
+    {
+        return "";
+    }
+
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws Exception {
+    public String adminDashboard(Model model) throws IOException {
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
-        HashMap<String, Document> docuMap = new HashMap<>();
 
         for (Student student : students) {
             List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
             List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);
 
             map.put(student, studentRequirementAndInstances);
-
-            for (int indice = 0; indice < studentRequirements.size(); indice++) {
-                if (studentRequirements.get(indice).getDocGUID() != null) {
-                    System.out.println("adminDashboard(Model model) DocGUID: " + studentRequirements.get(indice).getDocGUID());
-                    String docGUID = studentRequirements.get(indice).getDocGUID();
-                    // TODO: doc is null, fix this
-                    Document doc = DB_Helper.getDocumentByGUID(docGUID, studentRequirements.get(indice).getStudentUID());
-                    System.out.println("adminDashboard(Model model) doc: " + doc.toString());
-                    docuMap.put(docGUID, doc);
-                }
-            }
         }
 
-        docuMap.forEach((k, v) -> {
-            System.out.println("adminDashboard(Model model) docuMap: " + k + " " + v);
-        });
-
         model.addAttribute("map", map);
-        model.addAttribute("docuMap", docuMap);
-
         return "admin";
     }
 
@@ -57,7 +47,13 @@ public class AdminController {
      * Filter by Major
      */
     @GetMapping(value = "admin", params = "filter=major")
-    public String filterByMajor(Model model) throws IOException {
+    public String filterByMajor(HttpServletRequest req, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<String, Map<Student, List<RequirementAndInstance>>> studentsAndRequirementByMajor = new HashMap<>();
