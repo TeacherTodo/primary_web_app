@@ -1,7 +1,5 @@
 package edu.nau.coe_stic_app.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.Requirement;
 import edu.nau.coe_stic_app.models.RequirementAndInstance;
@@ -10,11 +8,8 @@ import edu.nau.coe_stic_app.models.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

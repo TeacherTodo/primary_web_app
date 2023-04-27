@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class AdminController {
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
-        HashMap<String, Document > docuMap = new HashMap<>();
+        HashMap<String, Document> docuMap = new HashMap<>();
 
         for (Student student : students) {
             List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
@@ -32,16 +31,21 @@ public class AdminController {
 
             map.put(student, studentRequirementAndInstances);
 
-            for( int indice = 0; indice < studentRequirements.size(); indice++ )
-            {
-                if( studentRequirements.get(indice).getDocGUID() != null )
-                {
-                    docuMap.put(studentRequirements.get(indice).getDocGUID(), DB_Helper.getDocumentByGUID(studentRequirements.get(indice).getDocGUID(), studentRequirements.get(indice).getStudentUID()));
+            for (int indice = 0; indice < studentRequirements.size(); indice++) {
+                if (studentRequirements.get(indice).getDocGUID() != null) {
+                    System.out.println("adminDashboard(Model model) DocGUID: " + studentRequirements.get(indice).getDocGUID());
+                    String docGUID = studentRequirements.get(indice).getDocGUID();
+                    // TODO: doc is null, fix this
+                    Document doc = DB_Helper.getDocumentByGUID(docGUID, studentRequirements.get(indice).getStudentUID());
+                    System.out.println("adminDashboard(Model model) doc: " + doc.toString());
+                    docuMap.put(docGUID, doc);
                 }
             }
         }
 
-
+        docuMap.forEach((k, v) -> {
+            System.out.println("adminDashboard(Model model) docuMap: " + k + " " + v);
+        });
 
         model.addAttribute("map", map);
         model.addAttribute("docuMap", docuMap);
@@ -69,7 +73,7 @@ public class AdminController {
             }
 
             studentsAndRequirementByMajor.get(major)
-                                         .put(student, studentRequirementAndInstances);
+                    .put(student, studentRequirementAndInstances);
         }
 
         // TODO: debugging

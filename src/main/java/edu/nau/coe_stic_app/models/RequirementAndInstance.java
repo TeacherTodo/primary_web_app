@@ -8,6 +8,16 @@ import java.util.stream.Collectors;
 
 public class RequirementAndInstance {
 
+    Requirement requirement;
+    RequirementInstance requirementInstance;
+
+    public RequirementAndInstance() {
+    }
+    public RequirementAndInstance(Requirement requirement, RequirementInstance requirementInstance) {
+        this.requirement = requirement;
+        this.requirementInstance = requirementInstance;
+    }
+
     public static RequirementAndInstance create(RequirementInstance requirementInstance, List<Requirement> requirements) {
         if (requirementInstance == null) {
             return null;
@@ -68,16 +78,6 @@ public class RequirementAndInstance {
         }
 
         return requirementAndInstanceList;
-    }
-
-    Requirement requirement;
-    RequirementInstance requirementInstance;
-
-    public RequirementAndInstance() {}
-
-    public RequirementAndInstance(Requirement requirement, RequirementInstance requirementInstance) {
-        this.requirement = requirement;
-        this.requirementInstance = requirementInstance;
     }
 
     public Requirement getRequirement() {
