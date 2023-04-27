@@ -21,9 +21,10 @@
         <div class="col-sm">
             <h1>Students</h1>
             <div th:replace="~{fragments/admin-filter-nav}"></div>
-            <th:block th:replace="~{fragments/student-accordion (map=${map})}"></th:block>
+            <th:block th:replace="~{fragments/student-accordion(map=${map}, docuMap=${docuMap})}"></th:block>
         </div>
     </div>
 </div>
+<!--<script src="/bootstrap/js/bootstrap.js"></script>-->
 </body>
 </html>

@@ -27,19 +27,64 @@ public class AdminController {
     }
 
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws IOException {
+    public String adminDashboard(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
+        HashMap<String, Document> docuMap = new HashMap<>();
 
-        for (Student student : students) {
-            List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
-            List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);
+
+        //TODO: debugging
+//        System.out.println("AdminController students: " + students);
+//        students.forEach(System.out::println);
+        //TODO: end debugging
+
+        for (int index = 0; index < students.size(); index++) {
+            List<RequirementInstance> requirementsInstances = DB_Helper.getStudentRequirements(students.get(index)
+                                                                                                       .getUid());
+            //TODO: debugging
+//            System.out.println("AdminController requirements: " + requirements);
+            //TODO: end debugging
+
+//            map.put(students.get(index), (RequirementInstance[]) requirements.toArray());
+            map.put(students.get(index), requirementsInstances);
+
+            for( int indice = 0; indice < requirementsInstances.size(); indice++ )
+            {
+                if( requirementsInstances.get(indice).getDocGUID() != null )
+                {
+                    docuMap.put(requirementsInstances.get(indice).getDocGUID(), DB_Helper.getDocumentByGUID(requirementsInstances.get(indice).getDocGUID(), requirementsInstances.get(indice).getStudentUID()));
+                }
+            }
 
             map.put(student, studentRequirementAndInstances);
+
+            for (int indice = 0; indice < studentRequirements.size(); indice++) {
+                if (studentRequirements.get(indice).getDocGUID() != null) {
+                    System.out.println("adminDashboard(Model model) DocGUID: " + studentRequirements.get(indice).getDocGUID());
+                    String docGUID = studentRequirements.get(indice).getDocGUID();
+                    // TODO: doc is null, fix this
+                    Document doc = DB_Helper.getDocumentByGUID(docGUID, studentRequirements.get(indice).getStudentUID());
+                    System.out.println("adminDashboard(Model model) doc: " + doc.toString());
+                    docuMap.put(docGUID, doc);
+                }
+            }
         }
 
+        docuMap.forEach((k, v) -> {
+            System.out.println("adminDashboard(Model model) docuMap: " + k + " " + v);
+        });
+
         model.addAttribute("map", map);
+        model.addAttribute("docuMap", docuMap);
+
+
         return "admin";
     }
 
@@ -72,7 +117,6 @@ public class AdminController {
                     .put(student, studentRequirementAndInstances);
         }
 
-        // TODO: debugging
         studentsAndRequirementByMajor.forEach((major, mapOfStudents) -> {
             System.out.println("Major: " + major);
             mapOfStudents.forEach((student, listOfReq) -> {
@@ -82,7 +126,6 @@ public class AdminController {
             });
             System.out.println("+++++++++++++++++++++++++++++++");
         });
-        // TODO: end debugging
 
         model.addAttribute("map", studentsAndRequirementByMajor);
 
@@ -140,30 +183,10 @@ public class AdminController {
     /*
      * Filter Students by email aka studentUid
      */
-    @GetMapping(value = "admin", params = "email")
-    public String findStudent(@RequestParam(name = "email") String studentEmail, Model model) throws IOException {
-//        @GetMapping
-//        @RequestMapping("/")
-//        public ResponseEntity<JsonNode> get() throws JsonProcessingException {
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode json = mapper.readTree("{\"id\": \"132\", \"name\": \"Alice\"}");
-//            return ResponseEntity.ok(json);
-//        }
-
-        // Todo: we have the email, and code should be modified to allow us to getStudentByEmail
-        //       currently doing this by hashing the email and using that as the studentUid
-        String studentUid = Hashing.sha256().hashString(studentEmail, StandardCharsets.UTF_8).toString();
-        Student student = DB_Helper.getStudent(studentUid);
-
-        List<Requirement> requirements = DB_Helper.getAllRequirements();
-        Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
-        List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
-        List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);
-
-        map.put(student, studentRequirementAndInstances);
-
-
-        model.addAttribute("map", map);
+    @GetMapping(value = "admin", params = "id")
+    public String findStudent(@RequestParam(name = "id") String studentId, Model model) throws IOException {
+        model.addAttribute("value", studentId);
+        return "test";
 
 //        //TODO: create a form to get the student's email that will be passed into the controller
 //        String studentEmail = "someEmail"; //TODO change
@@ -176,9 +199,9 @@ public class AdminController {
 //
 //        //TODO: probably want to add an attribute telling the model what we are filtering by.
 //        model.addAttribute("studentRequirementMap", studentRequirementMap);
-
-        //TODO: finish creating the template to display the filtered students
-        return "admin";
+//
+//        //TODO: finish creating the template to display the filtered students
+//        return "admin-filter";
     }
 
     /*
