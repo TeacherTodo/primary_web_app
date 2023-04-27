@@ -252,241 +252,240 @@ public class DB_Helper {
 //         Requirement req = mapper.readValue(response.body().byteStream(), Requirement.class);
 //         System.out.println("    getRequirementByID() req.toString(): " + req.toString()); //TODO: Remove this
 //         return req;
-        } catch (Exception e) {
-            System.out.println("    getRequirementByID(): Failed to parse JSON response."); //TODO: Remove this
-            return null;
-        }
-    }
+      }
+      catch(Exception e)
+      {
+         System.out.println("    getRequirementByID(): Failed to parse JSON response."); //TODO: Remove this
+         return null;
+      }
+   }
 
-    public static Major getMajorByName(String name) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/major/" + name).build();
-        Response response = client.newCall(request).execute();
-        ObjectMapper mapper = new ObjectMapper();
+   public static Major getMajorByName(String name) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/major/" + name).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            Major major = mapper.readValue(response.body().byteStream(), Major.class);
-            return major;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+      try
+      {
+         Major major = mapper.readValue(response.body().byteStream(), Major.class);
+         return major;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
 
-    public static Term getTermByName(String name) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/term/" + name).build();
-        Response response = client.newCall(request).execute();
-        ObjectMapper mapper = new ObjectMapper();
+   public static Term getTermByName(String name) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/term/" + name).build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            Term term = mapper.readValue(response.body().byteStream(), Term.class);
-            return term;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+      try
+      {
+         Term term = mapper.readValue(response.body().byteStream(), Term.class);
+         return term;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
 
-    public static List<Document> getAllDocs() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/docs-all").build();
-        Response response = client.newCall(request).execute();
-        ObjectMapper mapper = new ObjectMapper();
+   public static List<Document> getAllDocs() throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/docs-all").build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>() {
-            });
-            return docs;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+      try
+      {
+         List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>(){});
+         return docs;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
 
-    public static List<Document> getPendingDocs() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/docs-pending").build();
-        Response response = client.newCall(request).execute();
-        ObjectMapper mapper = new ObjectMapper();
+   public static List<Document> getPendingDocs() throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(apiUrl + "/docs-pending").build();
+      Response response = client.newCall(request).execute();
+      ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>() {
-            });
-            return docs;
-        } catch (Exception e) {
-            return null;
-        }
-    }
+      try
+      {
+         List<Document> docs = mapper.readValue(response.body().byteStream(), new TypeReference<List<Document>>(){});
+         return docs;
+      }
+      catch(Exception e)
+      {
+         return null;
+      }
+   }
 
-    public static void createAdminUser(String uid) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/admins/" + uid).post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createAdminUser(String uid) throws IOException
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/admins/" + uid).post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createStudent(String uid, String major, String grad_term, int grad_year, String first_name, String last_name) throws Exception {
-        CreateStudentRequest req = new CreateStudentRequest(uid, major, grad_term, grad_year, first_name, last_name);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/students").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createStudent(String uid, String major, String grad_term, int grad_year, String first_name, String last_name) throws Exception
+   {
+      CreateStudentRequest req = new CreateStudentRequest(uid, major, grad_term, grad_year, first_name, last_name);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/students").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createRequirement(String major, String title, String description, boolean documentation_required) throws Exception {
-        CreateRequirementRequest req = new CreateRequirementRequest(major, title, description, documentation_required);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirements").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createRequirement(String major, String title, String description, boolean documentation_required) throws Exception
+   {
+      CreateRequirementRequest req = new CreateRequirementRequest(major, title, description, documentation_required);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirements").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createRequirementInstance(int requirement_id, String student_uid, String status) throws Exception {
-        CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createRequirementInstance(int requirement_id, String student_uid, String status) throws Exception
+   {
+      CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createRequirementInstance(int requirement_id, String student_uid, String status, String doc_guid) throws Exception {
-        CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, doc_guid);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createRequirementInstance(int requirement_id, String student_uid, String status, String doc_guid) throws Exception
+   {
+      CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, doc_guid);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createRequirementInstance(int requirement_id, String student_uid, String status, Date retake_date) throws Exception {
-        CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, retake_date);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createRequirementInstance(int requirement_id, String student_uid, String status, Date retake_date) throws Exception
+   {
+      CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, retake_date);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createRequirementInstance(int requirement_id, String student_uid, String status, String doc_guid, Date retake_date) throws Exception {
-        CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, doc_guid, retake_date);
-        ObjectMapper mapper = new ObjectMapper();
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createRequirementInstance(int requirement_id, String student_uid, String status, String doc_guid, Date retake_date) throws Exception
+   {
+      CreateRequirementInstanceRequest req = new CreateRequirementInstanceRequest(requirement_id, student_uid, status, doc_guid, retake_date);
+      ObjectMapper mapper = new ObjectMapper();
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createMajor(String name) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/majors/" + name).post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void createMajor(String name) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/majors/" + name).post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void createDocument(CreateDocumentRequest req) throws Exception {
-        System.out.println("DB_Helper.createDocument()");
-        OkHttpClient client = new OkHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
+   public static void createDocument(CreateDocumentRequest req) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
 
-        //TODO: testing
-        System.out.println("DB_Helper.createDocument() req: " + mapper.writeValueAsString(req));
+      //TODO: testing
+      System.out.println("createDocument() req: " + mapper.writeValueAsString(req));
 
-        // create an okHttp request with content type application/json
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, mapper.writeValueAsString(req));
-        Request request = new Request.Builder().url(apiUrl + "/documents").post(body).build();
-        Response response = client.newCall(request).execute();
-        System.out.println("createDocument(CreateDocumentRequest req) response.code(): " + response.code());
-        System.out.println("createDocument(CreateDocumentRequest req) response.body(): " + response.body().toString());
-    }
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/documents").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void editRequirement(Requirement req) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void editRequirement(Requirement req) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void editStudent(Student student) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(student)).build();
-        Request request = new Request.Builder().url(apiUrl + "/student").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void editStudent(Student student) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(student)).build();
+      Request request = new Request.Builder().url(apiUrl + "/student").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void editDocument(Document doc) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(doc)).build();
-        Request request = new Request.Builder().url(apiUrl + "/document").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void editDocument(Document doc) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(doc)).build();
+      Request request = new Request.Builder().url(apiUrl + "/document").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void editRequirementInstance(RequirementInstance instance) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        ObjectMapper mapper = new ObjectMapper();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(instance)).build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void editRequirementInstance(RequirementInstance instance) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      ObjectMapper mapper = new ObjectMapper();
+      RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(instance)).build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement-instance").post(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void deleteRequirement(int id) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).delete(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void deleteRequirement(int id) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/requirement/" + id).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void deleteMajor(String name) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/major/" + name).delete(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void deleteMajor(String name) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/major/" + name).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void deleteAdmin(String uid) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/admin/" + uid).delete(body).build();
-        Response response = client.newCall(request).execute();
-    }
+   public static void deleteAdmin(String uid) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/admin/" + uid).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
 
-    public static void deleteDocument(String guid) throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().build();
-        Request request = new Request.Builder().url(apiUrl + "/document/" + guid).delete(body).build();
-        Response response = client.newCall(request).execute();
-    }
-
-    public static Document getDocumentByGUID(String guid, String studentUID) throws Exception {
-        System.out.println("DB_Helper.getDocumentByGUID():");
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/document/" + guid + "/" + studentUID).build();
-        Response response = client.newCall(request).execute();
-        ObjectMapper mapper = new ObjectMapper();
-//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // TODO: it was failing due to serialization
-
-        System.out.println("response.body().toString(): " + response.body().toString());
-        System.out.println("response.body().string(): " + response.body().string());
-        System.out.println("response.code(): " + response.code());
-        try {
-            String json = "{\"guid\":\"bbc61998-80f4-4723-8620-4868ffa062de\",\"fileExtension\":\"txt\",\"approvalStatus\":\"Pending Approval\",\"requirementInstanceId\":674137664,\"studentGuid\":\"459c857678de7fd622295c13208a416929a11cfa80e53c27973ea4e048dcb9f2\",\"studentName\":null}";
-            Document doc = mapper.readValue(json, Document.class);
-//            Document doc = mapper.readValue(response.body().byteStream(), Document.class);
-            System.out.println("DB_Helper.getDocumentByGUID() doc: " + doc);
-            return doc;
-        } catch (Exception e) {
-            System.err.println("DB_Helper.getDocumentByGUID() exception: " + e.getMessage());
-            return null;
-        }
-    }
-
-    public static void approveDocument(String guid) {
-    }
-
-    public static void denyDocument(String guid) {
-    }
+   public static void deleteDocument(String guid) throws Exception
+   {
+      OkHttpClient client = new OkHttpClient();
+      RequestBody body = new FormBody.Builder().build();
+      Request request = new Request.Builder().url(apiUrl + "/document/" + guid).delete(body).build();
+      Response response = client.newCall(request).execute();
+   }
 }
