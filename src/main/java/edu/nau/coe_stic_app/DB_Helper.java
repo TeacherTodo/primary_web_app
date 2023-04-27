@@ -488,4 +488,10 @@ public class DB_Helper {
       Request request = new Request.Builder().url(apiUrl + "/document/" + guid).delete(body).build();
       Response response = client.newCall(request).execute();
    }
+
+   public static void approveDocument(String guid) {
+   }
+
+   public static void denyDocument(String guid) {
+   }
 }
