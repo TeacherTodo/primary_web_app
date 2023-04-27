@@ -1,7 +1,6 @@
 package edu.nau.coe_stic_app.models;
 
-public class CreateStudentRequest
-{
+public class CreateStudentRequest {
     public String uid;
     public String major;
     public String grad_term;
@@ -11,8 +10,7 @@ public class CreateStudentRequest
 
     public String last_name;
 
-    public CreateStudentRequest(String uid, String major, String grad_term, int grad_year, String first_name, String last_name)
-    {
+    public CreateStudentRequest(String uid, String major, String grad_term, int grad_year, String first_name, String last_name) {
         this.uid = uid;
         this.major = major;
         this.grad_term = grad_term;

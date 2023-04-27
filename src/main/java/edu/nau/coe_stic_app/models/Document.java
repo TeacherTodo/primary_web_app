@@ -1,73 +1,110 @@
 package edu.nau.coe_stic_app.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
 
 public class Document
-{
+
+        /*
+         * "guid":"bbc61998-80f4-4723-8620-4868ffa062de",
+         * "fileExtension":"txt",
+         * "approvalStatus":"Pending Approval",
+         * "requirementInstanceId":674137664,
+         * "studentGuid":"459c857678de7fd622295c13208a416929a11cfa80e53c27973ea4e048dcb9f2",
+         * "studentName":null,
+         * "uploadTimestamp":1682497934308
+         */ {
     private String guid;
-    private String file_extension;
-    @JsonProperty("approval_status")
-    private String status;
-    private int requirement_instance_id;
-    @JsonProperty("student_uid")
-    private String student;
-    private String student_name;
-    private Date upload_timestamp;
+    private String fileExtension;
+    private String approvalStatus;
+    private int requirementInstanceId;
+    private String studentGuid;
+    private String studentName;
+    @JsonIgnore
+    private Date uploadTimestamp;
 
-    public Document(String guid, String file_extension, String status, int requirement_instance_id, String student, String student_name, Date upload_timestamp)
-    {
+    protected Document() {
+    }
+
+    public Document(String guid, String fileExtension, String approvalStatus, int requirementInstanceId, String studentGuid, String studentName, Date uploadTimestamp) {
         this.guid = guid;
-        this.file_extension = file_extension;
-        this.status = status;
-        this.requirement_instance_id = requirement_instance_id;
-        this.student = student;
-        this.student_name = student_name;
-        this.upload_timestamp = upload_timestamp;
+        this.fileExtension = fileExtension;
+        this.approvalStatus = approvalStatus;
+        this.requirementInstanceId = requirementInstanceId;
+        this.studentGuid = studentGuid;
+        this.studentName = studentName;
+        this.uploadTimestamp = uploadTimestamp;
     }
 
-    public String getGUID()
-    {
-        return this.guid;
+    public String getGuid() {
+        return guid;
     }
 
-    public String getFileExtension()
-    {
-        return this.file_extension;
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
-    public String getApprovalStatus()
-    {
-        return this.status;
+    public String getFileExtension() {
+        return fileExtension;
     }
 
-    public int getRequirementInstanceID()
-    {
-        return this.requirement_instance_id;
+    public void setFileExtension(String file_extension) {
+        this.fileExtension = file_extension;
     }
-    public String getStudentUID()
-    {
-        return this.student;
-    }
-    public String getStudentName() {return this.student_name;}
 
-    public Date getUploadTimestamp()
-    {
-        return this.upload_timestamp;
+    public String getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(String approval_status) {
+        this.approvalStatus = approval_status;
+    }
+
+    public int getRequirementInstanceId() {
+        return requirementInstanceId;
+    }
+
+    public void setRequirementInstanceId(int requirement_instance_id) {
+        this.requirementInstanceId = requirement_instance_id;
+    }
+
+    public String getStudentGuid() {
+        return studentGuid;
+    }
+
+    public void setStudentGuid(String student_guid) {
+        this.studentGuid = student_guid;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String student_name) {
+        this.studentName = student_name;
+    }
+
+    @JsonIgnore
+    public Date getUploadTimestamp() {
+        return uploadTimestamp;
+    }
+
+    @JsonIgnore
+    public void setUploadTimestamp(Date upload_timestamp) {
+        this.uploadTimestamp = upload_timestamp;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Document{" +
                 "guid='" + guid + '\'' +
-                ", file_extension='" + file_extension + '\'' +
-                ", status='" + status + '\'' +
-                ", requirement_instance_id=" + requirement_instance_id +
-                ", student='" + student + '\'' +
-                ", student_name='" + student_name + '\'' +
-                ", upload_timestamp=" + upload_timestamp +
+                ", fileExtension='" + fileExtension + '\'' +
+                ", approvalStatus='" + approvalStatus + '\'' +
+                ", requirementInstanceId=" + requirementInstanceId +
+                ", studentGuid='" + studentGuid + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", uploadTimestamp=" + uploadTimestamp +
                 '}';
     }
 }

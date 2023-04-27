@@ -20,24 +20,24 @@
 <h2>View Documents</h2>
 <table class="table">
     <thead>
-    <tr>
-        <th scope="col">Student Name</th>
-        <th scope="col">Requirement</th>
-        <th scope="col">Actions</th>
-    </tr>
+        <tr>
+            <th scope="col">Student Name</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">Actions</th>
+        </tr>
     </thead>
     <tbody>
-    <tr th:each="doc : ${docs}">
-        <td th:text="${doc.getStudentName()}"></td>
-        <td th:text="${requirement}"></td>
-        <td>
-            <button type="button" class="btn btn-primary" th:action="@{/admin/download-doc/${doc.getGUID()}}">Download</button>
-            <button th:if="${doc.getApprovalStatus() == 'Pending Approval'}" type="button" class="btn btn-success"
-                    th:action="@{/admin/approve-doc/${doc.getGUID()}}">Approve</button>
-            <button th:if="${doc.getApprovalStatus() == 'Pending Approval'}" type="button" class="btn btn-danger"
-                    th:action="@{/admin/deny-doc/${doc.getGUID()}}">Deny</button>
-        </td>
-    </tr>
+        <tr th:each="doc : ${docs}">
+            <td th:text="${doc.getStudentName()}"></td>
+            <td th:text="${requirement}"></td>
+            <td>
+                <button type="button" class="btn btn-primary" th:action="${'/admin/download-doc/' + doc.getGUID()}">Download</button>
+                <button th:if="${doc.getApprovalStatus() == 'Pending Approval'}" type="button" class="btn btn-success"
+                        th:action="${'/admin/approve-doc/' + doc.getGUID()}">Approve</button>
+                <button th:if="${doc.getApprovalStatus() == 'Pending Approval'}" type="button" class="btn btn-danger"
+                        th:action="${'/admin/deny-doc/' + doc.getGUID()}">Deny</button>
+            </td>
+        </tr>
     </tbody>
 </table>
 </body>

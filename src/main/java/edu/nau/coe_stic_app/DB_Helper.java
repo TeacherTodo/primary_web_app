@@ -30,6 +30,8 @@ public class DB_Helper {
         System.out.println("uploadFileContent() body: " + body.contentType());
 
         Response response = client.newCall(request).execute();
+        System.out.println("uploadFileContent() response.code(): " + response.code());
+        System.out.println("uploadFileContent() response.body(): " + response.body().string());
     }
 
     public static String getUserRole(String uid) throws IOException {
@@ -114,14 +116,14 @@ public class DB_Helper {
 
         try {
             //TODO: debugging testing the pasing of one student object
-            String studentJson = "{\n" +
-                    "  \"uid\" : \"6e8d6c69af58e73c7248364aa59b0c257f6ba1d19782eb9e38890a61ada948ef\",\n" +
-                    "  \"major\" : \"Computer Science\",\n" +
-                    "  \"gradTerm\" : \"Spring\",\n" +
-                    "  \"gradYear\" : 2023\n" +
-                    "}";
-            Student student = mapper.readValue(studentJson, Student.class);
-            System.out.println("getAllStudents(): student.toString(): " + student.toString());
+//            String studentJson = "{\n" +
+//                    "  \"uid\" : \"6e8d6c69af58e73c7248364aa59b0c257f6ba1d19782eb9e38890a61ada948ef\",\n" +
+//                    "  \"major\" : \"Computer Science\",\n" +
+//                    "  \"gradTerm\" : \"Spring\",\n" +
+//                    "  \"gradYear\" : 2023\n" +
+//                    "}";
+//            Student student = mapper.readValue(studentJson, Student.class);
+//            System.out.println("getAllStudents(): student.toString(): " + student.toString());
             //TODO: end debugging
 
             String responseString = response.body().string();
@@ -138,8 +140,6 @@ public class DB_Helper {
             return null;
         }
     }
-
-    //TODO: Add functions for documents
 
     public static List<Major> getAllMajors() throws IOException {
         OkHttpClient client = new OkHttpClient();
@@ -467,12 +467,26 @@ public class DB_Helper {
         Request request = new Request.Builder().url(apiUrl + "/document/" + guid + "/" + studentUID).build();
         Response response = client.newCall(request).execute();
         ObjectMapper mapper = new ObjectMapper();
+//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // TODO: it was failing due to serialization
+
+        System.out.println("response.body().toString(): " + response.body().toString());
+        System.out.println("response.body().string(): " + response.body().string());
+        System.out.println("response.code(): " + response.code());
         try {
-            Document doc = mapper.readValue(response.body().byteStream(), Document.class);
+            String json = "{\"guid\":\"bbc61998-80f4-4723-8620-4868ffa062de\",\"fileExtension\":\"txt\",\"approvalStatus\":\"Pending Approval\",\"requirementInstanceId\":674137664,\"studentGuid\":\"459c857678de7fd622295c13208a416929a11cfa80e53c27973ea4e048dcb9f2\",\"studentName\":null}";
+            Document doc = mapper.readValue(json, Document.class);
+//            Document doc = mapper.readValue(response.body().byteStream(), Document.class);
             System.out.println("DB_Helper.getDocumentByGUID() doc: " + doc);
             return doc;
         } catch (Exception e) {
+            System.err.println("DB_Helper.getDocumentByGUID() exception: " + e.getMessage());
             return null;
         }
+    }
+
+    public static void approveDocument(String guid) {
+    }
+
+    public static void denyDocument(String guid) {
     }
 }

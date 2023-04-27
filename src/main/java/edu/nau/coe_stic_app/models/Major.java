@@ -2,14 +2,13 @@ package edu.nau.coe_stic_app.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Major
-{
+public class Major {
     private String major;
 
-    public Major() {}
+    public Major() {
+    }
 
-    public Major(String major)
-    {
+    public Major(String major) {
         this.major = major;
     }
 
@@ -24,8 +23,7 @@ public class Major
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Major{" +
                 "major='" + major + '\'' +
                 '}';

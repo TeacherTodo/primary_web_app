@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class StudentObjectController
-{
+public class StudentObjectController {
     @RequestMapping(path = "/create-student", method = RequestMethod.POST)
-    public String createStudent(@RequestBody String jsonString) throws Exception
-    {
+    public String createStudent(@RequestBody String jsonString) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         CreateStudentRequest req = mapper.readValue(jsonString, CreateStudentRequest.class);
         DB_Helper.createStudent(req.uid, req.major, req.grad_term, req.grad_year, req.first_name, req.last_name);
@@ -22,8 +20,7 @@ public class StudentObjectController
     }
 
     @RequestMapping(path = "/edit-student", method = RequestMethod.POST)
-    public String editStudent(@RequestBody String jsonString) throws Exception
-    {
+    public String editStudent(@RequestBody String jsonString) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         Student student = mapper.readValue(jsonString, Student.class);
         DB_Helper.editStudent(student);

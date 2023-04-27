@@ -5,8 +5,7 @@ import jakarta.annotation.Nullable;
 
 import java.util.Date;
 
-public class RequirementInstance
-{
+public class RequirementInstance {
 
     /*
      * Statuses:
@@ -28,40 +27,10 @@ public class RequirementInstance
     @JsonProperty("retake_date")
     private Date retake_date;
 
-    public RequirementInstance() {}
-
-    public RequirementInstance(int id, int requirement_id, String student, String status)
-    {
-        this.id = id;
-        this.requirement_id = requirement_id;
-        this.student = student;
-        this.status = status;
-        this.doc_guid = null;
-        this.retake_date = null;
+    public RequirementInstance() {
     }
 
-    public RequirementInstance(int id, int requirement_id, String student, String status, String doc_guid)
-    {
-        this.id = id;
-        this.requirement_id = requirement_id;
-        this.student = student;
-        this.status = status;
-        this.doc_guid = doc_guid;
-        this.retake_date = null;
-    }
-
-    public RequirementInstance(int id, int requirement_id, String student, String status, Date retake_date)
-    {
-        this.id = id;
-        this.requirement_id = requirement_id;
-        this.student = student;
-        this.status = status;
-        this.doc_guid = null;
-        this.retake_date = retake_date;
-    }
-
-    public RequirementInstance(int id, int requirement_id, String student, String status, String doc_guid, Date retake_date)
-    {
+    public RequirementInstance(int id, int requirement_id, String student, String status, @Nullable String doc_guid, @Nullable Date retake_date) {
         this.id = id;
         this.requirement_id = requirement_id;
         this.student = student;
@@ -70,43 +39,36 @@ public class RequirementInstance
         this.retake_date = retake_date;
     }
 
-    public int getID()
-    {
+    public int getID() {
         return this.id;
     }
 
     @JsonProperty("requirement_id")
-    public int getRequirementID()
-    {
+    public int getRequirementID() {
         return this.requirement_id;
     }
 
     @JsonProperty("student_uid")
-    public String getStudentUID()
-    {
+    public String getStudentUID() {
         return this.student;
     }
 
-    public String getStatus()
-    {
+    public String getStatus() {
         return this.status;
     }
 
     @JsonProperty("doc_guid")
-    public String getDocGUID()
-    {
+    public String getDocGUID() {
         return this.doc_guid;
     }
 
     @JsonProperty("retake_date")
-    public Date getRetakeDate()
-    {
+    public Date getRetakeDate() {
         return this.retake_date;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "RequirementInstance{" +
                 "id=" + id +
                 ", requirement_id=" + requirement_id +
