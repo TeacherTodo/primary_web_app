@@ -70,6 +70,7 @@ public class LoginController {
             Map userAttributes = response.getBody();
             email = (String) userAttributes.get("email");
             name = (String) userAttributes.get("name");
+            name = name.replace(" ", ":");
             uid = SecurityHelper.hashUID(email.substring(0, email.indexOf("@")));
             role = DB_Helper.getUserRole(uid);
             registeredStudent = (role.equals("admin")) ? false : DB_Helper.isRegisteredStudent(uid);
@@ -78,6 +79,7 @@ public class LoginController {
         String regStudentString = registeredStudent ? "true" : "false";
         String cookieValue = "UID=" + uid + "&Name=" + name + "&Role=" + role + "&RegisteredStudent=" + regStudentString
                 + "&Token=" + client.getAccessToken().getTokenValue();
+        System.out.println("Cookie Value: " + cookieValue); //TODO: Remove debug print
         Cookie cookie = new Cookie("SticWebApp", cookieValue);
         cookie.setMaxAge(1800);
         cookie.setPath("/");
@@ -88,6 +90,11 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        return cookieValue;
+        if(role.equals("admin"))
+        {
+            return "redirect:/admin";
+        }
+
+        return "redirect:/student";
     }
 }

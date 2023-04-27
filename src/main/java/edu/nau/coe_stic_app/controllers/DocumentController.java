@@ -3,8 +3,11 @@ package edu.nau.coe_stic_app.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 import edu.nau.coe_stic_app.DB_Helper;
+import edu.nau.coe_stic_app.models.CookieValues;
 import edu.nau.coe_stic_app.models.CreateDocumentRequest;
 import edu.nau.coe_stic_app.models.Document;
+import edu.nau.coe_stic_app.security.SecurityHelper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +40,13 @@ public class DocumentController {
     }
 
     @RequestMapping(path = "/admin/all-docs", method = RequestMethod.GET)
-    public String allDocs(Model model) throws Exception {
+    public String allDocs(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Document> docs = DB_Helper.getAllDocs();
         //TODO: Pass requirement name to model
         model.addAttribute("docs", docs);
@@ -46,7 +55,13 @@ public class DocumentController {
     }
 
     @RequestMapping(path = "/admin/pending-docs", method = RequestMethod.GET)
-    public String pendingDocs(Model model) throws Exception {
+    public String pendingDocs(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Document> docs = DB_Helper.getPendingDocs();
         //TODO: Pass requirement name to model
         model.addAttribute("docs", docs);
@@ -98,13 +113,25 @@ public class DocumentController {
 
     //TODO: Add approve/deny endpoints
     @PostMapping("/approve-document/{guid}")
-    public String approveDoc(@PathVariable String guid) throws Exception {
+    public String approveDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         DB_Helper.approveDocument(guid);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/deny-document/{guid}")
-    public String denyDoc(@PathVariable String guid) throws Exception {
+    public String denyDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         DB_Helper.denyDocument(guid);
 //        DB_Helper.deleteDocument(guid); // TODO: should we delete it?
         return "redirect:/admin/dashboard";

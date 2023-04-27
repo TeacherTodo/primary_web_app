@@ -1,7 +1,10 @@
 package edu.nau.coe_stic_app.controllers;
 
 import edu.nau.coe_stic_app.DB_Helper;
+import edu.nau.coe_stic_app.models.CookieValues;
 import edu.nau.coe_stic_app.models.Major;
+import edu.nau.coe_stic_app.security.SecurityHelper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +20,26 @@ import java.util.List;
 @Controller
 public class MajorController {
     @RequestMapping(path = "/admin/view-majors", method = RequestMethod.GET)
-    public String viewMajors(Model model) throws Exception {
+    public String viewMajors(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Major> majors = DB_Helper.getAllMajors();
         model.addAttribute("majors", majors);
         return "view-majors";
     }
 
     @RequestMapping(path = "/admin/add-major", method = RequestMethod.GET)
-    public String createMajor(Model model) throws IOException {
+    public String createMajor(HttpServletRequest req, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         model.addAttribute("major", new Major());
         return "add-major";
     }
@@ -38,7 +53,13 @@ public class MajorController {
     }
 
     @RequestMapping(path = "/admin/delete-major/{name}", method = RequestMethod.GET)
-    public String deleteMajor(@PathVariable String name, Model model) {
+    public String deleteMajor(HttpServletRequest req, @PathVariable String name, Model model) {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         System.out.println("deleteMajor(name): " + name);
         model.addAttribute("major", name);
         return "delete-major";

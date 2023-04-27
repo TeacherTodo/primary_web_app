@@ -3,12 +3,13 @@ package edu.nau.coe_stic_app.controllers;
 import com.google.common.hash.Hashing;
 import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.*;
+import edu.nau.coe_stic_app.security.SecurityHelper;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -18,8 +19,21 @@ import java.util.Map;
 
 @Controller
 public class AdminController {
+    @RequestMapping(path = "/admin/unauthorized", method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "You are not authorized to access this page.")
+    public String unauthorizedAccess()
+    {
+        return "";
+    }
+
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws Exception {
+    public String adminDashboard(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
@@ -57,7 +71,13 @@ public class AdminController {
      * Filter by Major
      */
     @GetMapping(value = "admin", params = "filter=major")
-    public String filterByMajor(Model model) throws IOException {
+    public String filterByMajor(HttpServletRequest req, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if(!cookie.getRole().equals("admin"))
+        {
+            return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<String, Map<Student, List<RequirementAndInstance>>> studentsAndRequirementByMajor = new HashMap<>();
