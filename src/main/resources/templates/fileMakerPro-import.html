@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Filter Students</title>
+  <title>Teacher To-Do Students</title>
   <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
   <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
@@ -15,17 +15,18 @@
     <h2><strong>A project devoted to helping new student teachers.</strong></h2>
   </div>
 </header>
-<th:block th:replace="~{fragments/admin-nav}"></th:block>
+<div th:replace="~{fragments/admin-nav}"></div>
 <div class="container-md">
   <div class="row">
     <div class="col-sm">
-      <h1>Students</h1>
-      <th:block th:replace="~{fragments/admin-filter-nav}"></th:block>
-      <th:block th:each="major: ${map.keySet().iterator()}">
-        <h1 th:text="${major}"></h1>
-          <th:block th:replace="~{fragments/student-accordion (map=${map.get(major)})}"></th:block>
-        </th:block>
-      </th:block>
+      <h1>Import FileMaker Pro Student Records</h1>
+      <form class="container-sm align-content-center">
+        <div class="form-group">
+          <label for="file">File input</label>
+          <input type="file" class="form-control-file" id="file">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
   </div>
 </div>
