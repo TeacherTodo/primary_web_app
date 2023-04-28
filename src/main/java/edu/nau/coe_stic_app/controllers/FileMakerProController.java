@@ -12,8 +12,7 @@ public class FileMakerProController {
     @GetMapping("fileMakerPro/import")
     public String importFileMakerPro(HttpServletRequest req) {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -23,8 +22,7 @@ public class FileMakerProController {
     @GetMapping("fileMakerPro/export")
     public String exportFileMakerPro(HttpServletRequest req) {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 

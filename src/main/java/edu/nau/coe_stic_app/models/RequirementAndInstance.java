@@ -13,6 +13,7 @@ public class RequirementAndInstance {
 
     public RequirementAndInstance() {
     }
+
     public RequirementAndInstance(Requirement requirement, RequirementInstance requirementInstance) {
         this.requirement = requirement;
         this.requirementInstance = requirementInstance;

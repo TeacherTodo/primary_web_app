@@ -20,8 +20,7 @@ public class AdminUserController {
     @RequestMapping(path = "/admin/view-admins", method = RequestMethod.GET)
     public String viewAdmins(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -33,8 +32,7 @@ public class AdminUserController {
     @RequestMapping(path = "/admin/add-admin", method = RequestMethod.GET)
     public String createAdmin(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -45,8 +43,7 @@ public class AdminUserController {
     @RequestMapping(path = "/admin/add-admin", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String confirmCreateAdmin(HttpServletRequest req, AdminUser admin) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -59,8 +56,7 @@ public class AdminUserController {
     @RequestMapping(path = "/admin/delete-admin/{uid}", method = RequestMethod.GET)
     public String deleteAdmin(HttpServletRequest req, @PathVariable String uid, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -71,8 +67,7 @@ public class AdminUserController {
     @RequestMapping(path = "/admin/delete-admin/{uid}", method = RequestMethod.POST)
     public String confirmDeleteAdmin(HttpServletRequest req, @PathVariable String uid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 

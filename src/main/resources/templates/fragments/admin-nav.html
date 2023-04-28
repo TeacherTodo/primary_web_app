@@ -1,48 +1,52 @@
 <!doctype html>
-<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Document</title>
 </head>
 <body>
-<nav th:fragment="admin-nav" id="admin-nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="admin-nav" th:fragment="admin-nav">
     <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="/admin">Admin Dashboard</a></li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="majorDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Majors</a>
-            <div class="dropdown-menu" aria-labelledby="majorDropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="majorDropdown"
+               role="button">Majors</a>
+            <div aria-labelledby="majorDropdown" class="dropdown-menu">
                 <a class="dropdown-item" href="/admin/add-major">Create New Major</a>
                 <a class="dropdown-item" href="/admin/view-majors">View/Edit/Delete Majors</a>
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="docDropdown" role="button"
-               data-bs-toggle="dropdown" aria-expanded="false">Documents</a>
-            <div class="dropdown-menu" aria-labelledby="docDropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="docDropdown" role="button">Documents</a>
+            <div aria-labelledby="docDropdown" class="dropdown-menu">
                 <a class="dropdown-item" href="/admin/all-docs">View All Documents</a>
                 <a class="dropdown-item" href="/admin/pending-docs">View Documents Pending Approval</a>
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="requirementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Requirements</a>
-            <div class="dropdown-menu" aria-labelledby="requirementDropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="requirementDropdown" role="button">Requirements</a>
+            <div aria-labelledby="requirementDropdown" class="dropdown-menu">
                 <a class="dropdown-item" href="/admin/add-requirement">Create New Requirement</a>
                 <a class="dropdown-item" href="/admin/view-requirements">View/Edit/Delete Requirements</a>
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admins</a>
-            <div class="dropdown-menu" aria-labelledby="adminDropdown">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="adminDropdown"
+               role="button">Admins</a>
+            <div aria-labelledby="adminDropdown" class="dropdown-menu">
                 <a class="dropdown-item" href="/admin/add-admin">Add Admin</a>
                 <a class="dropdown-item" href="/admin/delete-admin">Delete Admin</a>
             </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="fileMakerProDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">FileMaker Pro</a>
-            <div class="dropdown-menu" aria-labelledby="file">
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+               id="fileMakerProDropdown" role="button">FileMaker Pro</a>
+            <div aria-labelledby="file" class="dropdown-menu">
                 <a class="dropdown-item" href="/fileMakerPro/import">Import</a>
                 <a class="dropdown-item" href="/fileMakerPro/export">Export</a>
             </div>

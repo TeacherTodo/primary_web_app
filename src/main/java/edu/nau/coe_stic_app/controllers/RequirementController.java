@@ -21,8 +21,7 @@ public class RequirementController {
     @RequestMapping(path = "/admin/add-requirement", method = RequestMethod.GET)
     public String requirementGet(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -41,8 +40,7 @@ public class RequirementController {
     @RequestMapping(path = "/admin/view-requirements", method = RequestMethod.GET)
     public String viewRequirements(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -54,8 +52,7 @@ public class RequirementController {
     @RequestMapping(path = "/admin/edit-requirement/{id}", method = RequestMethod.GET)
     public String editRequirement(HttpServletRequest req, @PathVariable int id, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -76,8 +73,7 @@ public class RequirementController {
     @RequestMapping(path = "/admin/delete-requirement/{id}", method = RequestMethod.GET)
     public String deleteRequirement(HttpServletRequest req, @PathVariable int id, Model model) {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 

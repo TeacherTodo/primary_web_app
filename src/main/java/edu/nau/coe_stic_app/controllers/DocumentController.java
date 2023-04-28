@@ -42,8 +42,7 @@ public class DocumentController {
     @RequestMapping(path = "/admin/all-docs", method = RequestMethod.GET)
     public String allDocs(HttpServletRequest req, Model model) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -57,8 +56,7 @@ public class DocumentController {
     @RequestMapping(path = "/admin/pending-docs", method = RequestMethod.GET)
     public String pendingDocs(HttpServletRequest req, Model model) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -115,8 +113,7 @@ public class DocumentController {
     @PostMapping("/approve-document/{guid}")
     public String approveDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -127,8 +124,7 @@ public class DocumentController {
     @PostMapping("/deny-document/{guid}")
     public String denyDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 

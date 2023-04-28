@@ -2,16 +2,16 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Teacher To-Do Students</title>
-    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+    <link href="/bootstrap/css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
     <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
 <body>
 <header>
     <div class="content-width">
-        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+        <h1><img alt="Team Logo" height="80" src="/Icon.png" width="80"> Teacher To-Do </h1>
         <h2><strong>A project devoted to helping new student teachers.</strong></h2>
     </div>
 </header>
@@ -21,7 +21,7 @@
         <div class="col-sm">
             <h1>Students</h1>
             <div th:replace="~{fragments/admin-filter-nav}"></div>
-            <th:block th:replace="~{fragments/student-accordion (map=${map})}"></th:block>
+            <th:block th:replace="~{fragments/student-accordion(map=${map}, docuMap=${docuMap})}"></th:block>
         </div>
     </div>
 </div>

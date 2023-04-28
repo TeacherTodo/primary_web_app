@@ -90,8 +90,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        if(role.equals("admin"))
-        {
+        if (role.equals("admin")) {
             return "redirect:/admin";
         }
 

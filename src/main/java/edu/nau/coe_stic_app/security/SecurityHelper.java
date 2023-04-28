@@ -8,13 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 
 public class SecurityHelper {
-    public static String hashUID(String uid)
-    {
+    public static String hashUID(String uid) {
         return Hashing.sha256().hashString(uid, StandardCharsets.UTF_8).toString();
     }
 
-    public static CookieValues getCookieValues(HttpServletRequest request)
-    {
+    public static CookieValues getCookieValues(HttpServletRequest request) {
         Cookie cookies[] = request.getCookies();
         Cookie appCookie = null;
         int index;
@@ -22,10 +20,8 @@ public class SecurityHelper {
         boolean isRegisteredStudent;
 
         //Find application cookie
-        for(index = 0; index < cookies.length; index++)
-        {
-            if(cookies[index].getName().equals("SticWebApp"))
-            {
+        for (index = 0; index < cookies.length; index++) {
+            if (cookies[index].getName().equals("SticWebApp")) {
                 appCookie = cookies[index];
                 break;
             }

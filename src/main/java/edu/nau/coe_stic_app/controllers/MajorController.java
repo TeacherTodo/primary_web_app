@@ -22,8 +22,7 @@ public class MajorController {
     @RequestMapping(path = "/admin/view-majors", method = RequestMethod.GET)
     public String viewMajors(HttpServletRequest req, Model model) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -35,8 +34,7 @@ public class MajorController {
     @RequestMapping(path = "/admin/add-major", method = RequestMethod.GET)
     public String createMajor(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 
@@ -55,8 +53,7 @@ public class MajorController {
     @RequestMapping(path = "/admin/delete-major/{name}", method = RequestMethod.GET)
     public String deleteMajor(HttpServletRequest req, @PathVariable String name, Model model) {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
-        if(!cookie.getRole().equals("admin"))
-        {
+        if (!cookie.getRole().equals("admin")) {
             return "redirect:/admin/unauthorized";
         }
 

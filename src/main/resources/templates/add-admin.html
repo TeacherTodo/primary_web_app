@@ -1,27 +1,27 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Admin</title>
-  <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
-  <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Add Admin</title>
+    <link href="/bootstrap/css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
+    <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
 <body>
 
 <header>
-  <div class="content-width">
-    <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
-    <h2><strong>A project devoted to helping new student teachers.</strong></h2>
-  </div>
+    <div class="content-width">
+        <h1><img alt="Team Logo" height="80" src="/Icon.png" width="80"> Teacher To-Do </h1>
+        <h2><strong>A project devoted to helping new student teachers.</strong></h2>
+    </div>
 </header>
 <div th:replace="~{fragments/admin-nav}"></div>
 <form action="#" method="post" th:action="@{/admin/add-admin}" th:object="${admin}">
-  <div class="form-group">
-    <label for="email">Admin E-mail</label>
-    <input type="text" id="email" class="form-control">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+        <label for="email">Admin E-mail</label>
+        <input class="form-control" id="email" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 </body>
 </html>

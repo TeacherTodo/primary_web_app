@@ -3,16 +3,16 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Teacher To-Do Student Tasks</title>
-    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+    <link href="/bootstrap/css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
     <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
 <body>
 <header>
     <div class="content-width">
-        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+        <h1><img alt="Team Logo" height="80" src="/Icon.png" width="80"> Teacher To-Do </h1>
         <h2><strong>A project devoted to helping new student teachers.</strong></h2>
     </div>
 </header>
@@ -25,23 +25,24 @@
         <div class="accordion">
             <div class="accordion-item" th:each="req, itrStat: ${requirementAndInstances}">
                 <h2 class="accordion-header" th:id="${itrStat.index + '-heading'}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            th:data-bs-target="${'#' + itrStat.index + '-collapse'}" aria-expanded="true"
-                            th:aria-controls="${itrStat.index + '-collapse'}">
+                    <button aria-expanded="true" class="accordion-button collapsed" data-bs-toggle="collapse"
+                            th:aria-controls="${itrStat.index + '-collapse'}" th:data-bs-target="${'#' + itrStat.index + '-collapse'}"
+                            type="button">
                         <h5 th:text="${req.getRequirement().getTitle()}"></h5>
                     </button>
                 </h2>
-                <div th:id="${itrStat.index + '-collapse'}" class="accordion-collapse collapse"
+                <div class="accordion-collapse collapse" data-bs-parent="studentAccordion"
                      th:aria-labelledby="${itrStat.index + '-heading'}"
-                     data-bs-parent="studentAccordion">
+                     th:id="${itrStat.index + '-collapse'}">
                     <div class="accordion-body">
                         <p th:text="${req.getRequirement().getDescription()}"></p>
                         <p th:text="'Task Status - ' + ${req.getRequirementInstance().getStatus()}"></p>
-                        <form action="/create-document" method="post" enctype="multipart/form-data">
-                            <input type="file" name="file">
-                            <input type="hidden" name="student_uid" th:value="${student.getUid()}">
+                        <form action="/create-document" enctype="multipart/form-data" method="post">
+                            <input name="file" type="file">
+                            <input name="student_uid" th:value="${student.getUid()}" type="hidden">
                             <!--TODO: for requirement_uid it might be asking for the req, and i am giving the req_instance id-->
-                            <input type="hidden" name="requirement_uid" th:value="${req.getRequirementInstance().getID()}">
+                            <input name="requirement_uid" th:value="${req.getRequirementInstance().getID()}"
+                                   type="hidden">
                             <button type="submit">Submit</button>
                         </form>
                     </div>

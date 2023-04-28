@@ -2,17 +2,17 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Add Major</title>
-    <link rel="stylesheet" type="text/css" media="all" href="/bootstrap/css/bootstrap.css"/>
+    <link href="/bootstrap/css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
     <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
 </head>
 <body>
 
 <header>
     <div class="content-width">
-        <h1><img src="/Icon.png" alt="Team Logo" width="80" height="80"> Teacher To-Do </h1>
+        <h1><img alt="Team Logo" height="80" src="/Icon.png" width="80"> Teacher To-Do </h1>
         <h2><strong>A project devoted to helping new student teachers.</strong></h2>
     </div>
 </header>
@@ -20,9 +20,9 @@
 <form action="#" method="post" th:action="${'/admin/add-major'}" th:object="${major}">
     <div class="form-group">
         <label for="major">Major Name: </label>
-        <input type="text" id="major" th:name="major" class="form-control">
+        <input class="form-control" id="major" th:name="major" type="text">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 </body>
 </html>
