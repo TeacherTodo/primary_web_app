@@ -25,7 +25,12 @@ public class AdminController {
     }
 
     @RequestMapping(path = {"/admin", "/admin/home", "/admin/dashboard"}, method = RequestMethod.GET)
-    public String adminDashboard(Model model) throws Exception {
+    public String adminDashboard(HttpServletRequest req, Model model) throws Exception {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if (!cookie.getRole().equals("admin")) {
+            // return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         List<Requirement> requirements = DB_Helper.getAllRequirements();
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
@@ -66,7 +71,7 @@ public class AdminController {
     public String filterByMajor(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<Student> students = DB_Helper.getAllStudents();
@@ -107,7 +112,12 @@ public class AdminController {
     /*
      * Filter students with uncompleted requirements
      */
-    public String filterByUncompletedRequirements(Model model) throws IOException {
+    public String filterByUncompletedRequirements(HttpServletRequest req, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if (!cookie.getRole().equals("admin")) {
+            // return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         Map<Student, List<RequirementInstance>> studentRequirementMap = new HashMap<>();
         for (Student student : students) {
@@ -131,7 +141,12 @@ public class AdminController {
     /*
      * Filter students with all requirements completed
      */
-    public String filterByCompletedRequirements(Model model) throws IOException {
+    public String filterByCompletedRequirements(HttpServletRequest req, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if (!cookie.getRole().equals("admin")) {
+            // return "redirect:/admin/unauthorized";
+        }
+
         List<Student> students = DB_Helper.getAllStudents();
         Map<Student, List<RequirementInstance>> studentRequirementMap = new HashMap<>();
         for (Student student : students) {
@@ -156,14 +171,11 @@ public class AdminController {
      * Filter Students by email aka studentUid
      */
     @GetMapping(value = "admin", params = "email")
-    public String findStudent(@RequestParam(name = "email") String studentEmail, Model model) throws IOException {
-//        @GetMapping
-//        @RequestMapping("/")
-//        public ResponseEntity<JsonNode> get() throws JsonProcessingException {
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode json = mapper.readTree("{\"id\": \"132\", \"name\": \"Alice\"}");
-//            return ResponseEntity.ok(json);
-//        }
+    public String findStudent(HttpServletRequest req, @RequestParam(name = "email") String studentEmail, Model model) throws IOException {
+        CookieValues cookie = SecurityHelper.getCookieValues(req);
+        if (!cookie.getRole().equals("admin")) {
+            // return "redirect:/admin/unauthorized";
+        }
 
         // Todo: we have the email, and code should be modified to allow us to getStudentByEmail
         //       currently doing this by hashing the email and using that as the studentUid
@@ -171,6 +183,11 @@ public class AdminController {
         Student student = DB_Helper.getStudent(studentUid);
 
         List<Requirement> requirements = DB_Helper.getAllRequirements();
+        // TODO: testing
+        System.out.println("adminDashboard(Model model) requirements: ");
+        requirements.forEach(System.out::println);
+
+
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
         List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
         List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);

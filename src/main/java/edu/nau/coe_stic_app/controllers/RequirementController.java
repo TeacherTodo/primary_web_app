@@ -22,7 +22,7 @@ public class RequirementController {
     public String requirementGet(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<Major> majors = DB_Helper.getAllMajors();
@@ -33,6 +33,11 @@ public class RequirementController {
 
     @RequestMapping(path = "/admin/add-requirement", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String requirementPost(Requirement req) throws Exception {
+        // NOTE: testing
+        System.out.println("requirementPost(Requirement req): ");
+        System.out.println(req);
+        // NOTE: end testing
+
         DB_Helper.createRequirement(req.getMajor(), req.getTitle(), req.getDescription(), req.isDocumentationRequired());
         return "redirect:/admin/view-requirements";
     }
@@ -41,7 +46,7 @@ public class RequirementController {
     public String viewRequirements(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<Requirement> requirements = DB_Helper.getAllRequirements();
@@ -53,7 +58,7 @@ public class RequirementController {
     public String editRequirement(HttpServletRequest req, @PathVariable int id, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         Requirement requ = DB_Helper.getRequirementByID(id);
@@ -74,7 +79,7 @@ public class RequirementController {
     public String deleteRequirement(HttpServletRequest req, @PathVariable int id, Model model) {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         model.addAttribute("id", id);

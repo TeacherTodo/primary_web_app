@@ -24,6 +24,6 @@ public class StudentObjectController {
         ObjectMapper mapper = new ObjectMapper();
         Student student = mapper.readValue(jsonString, Student.class);
         DB_Helper.editStudent(student);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin";
     }
 }

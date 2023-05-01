@@ -21,10 +21,14 @@
 <form action="#" method="post" th:action="@{/admin/add-requirement}" th:object="${requirement}">
     <div class="form-group">
         <label for="major">Major: </label>
-        <select aria-label="Select Major" class="form-select" id="major">
+        <select aria-label="Select Major" class="form-select" id="major" name="major">
             <option th:each="major : ${allMajors}" th:text="${major.getMajor()}"
                     th:value="${major.getMajor()}"></option>
         </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Title: </label>
+        <textarea class="form-control" cols="50" id="title" name="title" rows="3"></textarea>
     </div>
     <div class="form-group">
         <label for="description">Description: </label>

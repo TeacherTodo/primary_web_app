@@ -21,7 +21,7 @@ public class AdminUserController {
     public String viewAdmins(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<AdminUser> adminList = DB_Helper.getAllAdmins();
@@ -33,7 +33,7 @@ public class AdminUserController {
     public String createAdmin(HttpServletRequest req, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         model.addAttribute("admin", new AdminUser());
@@ -44,7 +44,7 @@ public class AdminUserController {
     public String confirmCreateAdmin(HttpServletRequest req, AdminUser admin) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         DB_Helper.createAdminUser(admin.getUID());
@@ -57,7 +57,7 @@ public class AdminUserController {
     public String deleteAdmin(HttpServletRequest req, @PathVariable String uid, Model model) throws IOException {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         model.addAttribute("uid", uid);
@@ -68,7 +68,7 @@ public class AdminUserController {
     public String confirmDeleteAdmin(HttpServletRequest req, @PathVariable String uid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         DB_Helper.deleteAdmin(uid);

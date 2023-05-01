@@ -336,9 +336,19 @@ public class DB_Helper {
         CreateRequirementRequest req = new CreateRequirementRequest(major, title, description, documentation_required);
         ObjectMapper mapper = new ObjectMapper();
         OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+
+
+//        RequestBody body = new FormBody.Builder().add("", mapper.writeValueAsString(req)).build();
+//        Request request = new Request.Builder().url(apiUrl + "/requirements").post(body).build();
+
+        // create an okHttp request with content type application/json
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, mapper.writeValueAsString(req));
         Request request = new Request.Builder().url(apiUrl + "/requirements").post(body).build();
         Response response = client.newCall(request).execute();
+
+        System.out.println("createRequirement() response.body().string(): " + response.body().toString()); //TODO: Remove this
+        System.out.println("createRequirement() response.code(): " + response.code()); //TODO: Remove this
     }
 
     public static void createRequirementInstance(int requirement_id, String student_uid, String status) throws Exception {
@@ -485,8 +495,15 @@ public class DB_Helper {
     }
 
     public static void approveDocument(String guid) {
+
     }
 
     public static void denyDocument(String guid) {
+    }
+
+    public static void importFileMakerPro() throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/fileMakerPro").build();
+        Response response = client.newCall(request).execute();
     }
 }

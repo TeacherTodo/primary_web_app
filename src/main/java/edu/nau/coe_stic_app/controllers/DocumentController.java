@@ -43,7 +43,7 @@ public class DocumentController {
     public String allDocs(HttpServletRequest req, Model model) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<Document> docs = DB_Helper.getAllDocs();
@@ -57,7 +57,7 @@ public class DocumentController {
     public String pendingDocs(HttpServletRequest req, Model model) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         List<Document> docs = DB_Helper.getPendingDocs();
@@ -99,7 +99,7 @@ public class DocumentController {
         ObjectMapper mapper = new ObjectMapper();
         Document doc = mapper.readValue(jsonString, Document.class);
         DB_Helper.editDocument(doc);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin";
     }
 
     //Delete
@@ -110,26 +110,26 @@ public class DocumentController {
     }
 
     //TODO: Add approve/deny endpoints
-    @PostMapping("/approve-document/{guid}")
+    @GetMapping("/approve-document/{guid}")
     public String approveDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
         DB_Helper.approveDocument(guid);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin";
     }
 
-    @PostMapping("/deny-document/{guid}")
+    @GetMapping("/deny-document/{guid}")
     public String denyDoc(HttpServletRequest req, @PathVariable String guid) throws Exception {
         CookieValues cookie = SecurityHelper.getCookieValues(req);
         if (!cookie.getRole().equals("admin")) {
-            return "redirect:/admin/unauthorized";
+            // return "redirect:/admin/unauthorized";
         }
 
-        DB_Helper.denyDocument(guid);
-//        DB_Helper.deleteDocument(guid); // TODO: should we delete it?
-        return "redirect:/admin/dashboard";
+//        DB_Helper.denyDocument(guid);
+        DB_Helper.deleteDocument(guid); // TODO: should we delete it?
+        return "redirect:/admin";
     }
 }
