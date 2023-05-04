@@ -1,0 +1,51 @@
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Add Admin</title>
+    <link href="/bootstrap/css/bootstrap.css" media="all" rel="stylesheet" type="text/css"/>
+    <th:block th:replace="~{fragments/bootstrap-cdn-links}"></th:block>
+  </head>
+  <body>
+    <header>
+      <div class="content-width">
+        <h1><img alt="Team Logo" height="80" src="/Icon.png" width="80"> Teacher To-Do </h1>
+        <h2><strong>A project devoted to helping new student teachers.</strong></h2>
+      </div>
+    </header>
+    <div th:replace="~{fragments/admin-nav}"></div>
+    <form action="#" method="post" th:action="@{/admin/add-student}" th:object="${student}">
+      <div class="form-group">
+        <label for="uid">Student UID: </label>
+        <input class="form-control" id="uid" type="text">
+      </div>
+      <div class="form-group">
+        <label for="first-name">First Name: </label>
+        <input class="form-control" id="first-name" type="text">
+      </div>
+      <div class="form-group">
+        <label for="last-name">First Name: </label>
+        <input class="form-control" id="last-name" type="text">
+      </div>
+      <div class="form-group">
+        <label for="major">Major: </label>
+        <select class="form-control" id="major" th:field="*{major}">
+          <option th:each="major: ${majors}" th:value="${major.getMajor()}" th:text="${major.getMajor()}"></option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="grad-term">Graduation Term: </label>
+        <select class="form-control" name="grad-term" id="grad-term" th:field="*{grad_term}">
+          <option value="Fall">Fall</option>
+          <option value="Spring">Spring</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="grad-year">Graduation Year: </label>
+        <input class="form-control" id="grad-year" type="number">
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </body>
+</html>
