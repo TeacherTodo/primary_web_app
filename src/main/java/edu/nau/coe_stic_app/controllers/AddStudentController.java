@@ -1,5 +1,6 @@
 package edu.nau.coe_stic_app.controllers;
 
+import com.google.common.hash.Hashing;
 import edu.nau.coe_stic_app.DB_Helper;
 import edu.nau.coe_stic_app.models.CookieValues;
 import edu.nau.coe_stic_app.models.Student;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class AddStudentController
@@ -38,6 +40,7 @@ public class AddStudentController
          // return "redirect:/admin/unauthorized";
       }
 
+      student.setUid(Hashing.sha256().hashString(student.getUid(), StandardCharsets.UTF_8).toString());
       DB_Helper.createStudent(student.getUid(), student.getMajor(), student.getGrad_term(), student.getGrad_year(),
               student.getFirst_name(), student.getLast_name());
       return "redirect:/admin";
