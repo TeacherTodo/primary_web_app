@@ -494,16 +494,40 @@ public class DB_Helper {
         }
     }
 
-    public static void approveDocument(String guid) {
-
+    public static void approveDocument(String guid) throws IOException
+    {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/admin/approve-document/" + guid).build();
+        Response response = client.newCall(request).execute();
     }
 
-    public static void denyDocument(String guid) {
+    public static void denyDocument(String guid) throws IOException
+    {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/admin/deny-document/" + guid).build();
+        Response response = client.newCall(request).execute();
     }
 
     public static void importFileMakerPro() throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(apiUrl + "/fileMakerPro").build();
         Response response = client.newCall(request).execute();
+    }
+
+    public static void changeRequirementInstanceStatus(String docGuid, String status) throws Exception
+    {
+        RequirementInstance instance = getRequirementInstanceByDocGuid(docGuid);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/update-req-instance-status/" + instance.getID() + "/" + status).build();
+        Response response = client.newCall(request).execute();
+    }
+
+    public static RequirementInstance getRequirementInstanceByDocGuid(String guid) throws Exception
+    {
+        OkHttpClient client = new OkHttpClient();
+        ObjectMapper mapper = new ObjectMapper();
+        Request request = new Request.Builder().url(apiUrl + "/req-id-from-doc-guid/" + guid).build();
+        Response response = client.newCall(request).execute();
+        return mapper.readValue(response.body().byteStream(), RequirementInstance.class);
     }
 }

@@ -89,6 +89,7 @@ public class DocumentController {
         System.out.println("/create-document endpoint req: " + req);
         DB_Helper.createDocument(req);
         DB_Helper.uploadFileContent(req.fileGuid, req.fileExtension, file.getBytes());
+        DB_Helper.changeRequirementInstanceStatus(req.fileGuid, "In Progress");
 
         return "redirect:/";
     }
@@ -118,6 +119,7 @@ public class DocumentController {
         }
 
         DB_Helper.approveDocument(guid);
+        DB_Helper.changeRequirementInstanceStatus(guid, "Completed");
         return "redirect:/admin";
     }
 
@@ -130,6 +132,7 @@ public class DocumentController {
 
 //        DB_Helper.denyDocument(guid);
         DB_Helper.deleteDocument(guid); // TODO: should we delete it?
+        DB_Helper.changeRequirementInstanceStatus(guid, "Incomplete");
         return "redirect:/admin";
     }
 }
