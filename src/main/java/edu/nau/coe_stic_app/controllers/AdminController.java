@@ -36,6 +36,8 @@ public class AdminController {
         Map<Student, List<RequirementAndInstance>> map = new HashMap<>();
         HashMap<String, Document> docuMap = new HashMap<>();
 
+
+
         for (Student student : students) {
             List<RequirementInstance> studentRequirements = DB_Helper.getStudentRequirements(student.getUid());
             List<RequirementAndInstance> studentRequirementAndInstances = RequirementAndInstance.create(studentRequirements, requirements);

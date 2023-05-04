@@ -27,8 +27,10 @@
                 <h2 class="accordion-header" th:id="${itrStat.index + '-heading'}">
                     <button aria-expanded="true" class="accordion-button collapsed" data-bs-toggle="collapse"
                             th:aria-controls="${itrStat.index + '-collapse'}" th:data-bs-target="${'#' + itrStat.index + '-collapse'}"
-                            type="button">
-                        <h5 th:text="${req.getRequirement().getTitle()}"></h5>
+                            type="button" th:switch="${req.getRequirementInstance().getStatus()}">
+                        <h5 th:case="'Completed'" th:text="${req.getRequirement().getTitle()}" style="color: green;"></h5>
+                        <h5 th:case="'In Progress'" th:text="${req.getRequirement().getTitle()}" style="color: gold;"></h5>
+                        <h5 th:case="'Incomplete'" th:text="${req.getRequirement().getTitle()}"></h5>
                     </button>
                 </h2>
                 <div class="accordion-collapse collapse" data-bs-parent="studentAccordion"
