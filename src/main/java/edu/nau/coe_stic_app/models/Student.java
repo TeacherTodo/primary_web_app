@@ -10,6 +10,8 @@ public class Student {
     private String grad_term; // might want to change this to term
     private int grad_year; // might want to change this to year
 
+    private boolean active = true;
+
     public Student() {
     }
 
@@ -28,6 +30,12 @@ public class Student {
         this.grad_term = grad_term;
         this.grad_year = grad_year;
     }
+
+    @JsonProperty("active")
+    public boolean isActive() { return this.active; }
+
+    @JsonProperty("active")
+    public void setActive(boolean active) { this.active = active; }
 
     @JsonProperty("uid")
     public String getUid() {

@@ -530,4 +530,11 @@ public class DB_Helper {
         Response response = client.newCall(request).execute();
         return mapper.readValue(response.body().byteStream(), RequirementInstance.class);
     }
+
+    public static void deactivateStudent(String uid) throws Exception
+    {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/deactivate-student/" + uid).build();
+        Response response = client.newCall(request).execute();
+    }
 }
